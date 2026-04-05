@@ -39,6 +39,7 @@ await esbuild.build({
     'next-auth',
     'next-auth/*',
     '@auth/core',
+    'dotenv',
   ],
 })
 

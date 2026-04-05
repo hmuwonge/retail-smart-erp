@@ -1,7 +1,8 @@
 // Custom Next.js server with WebSocket support
 // Must run before any other Next code so globalThis.AsyncLocalStorage is set
 import 'next/dist/server/node-environment'
-import 'dotenv/config'
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 import type { Socket } from 'net'
 import next from 'next'
