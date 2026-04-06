@@ -56,8 +56,8 @@ function formatBytesShort(bytes: number | null): string {
 
 const fallbackPricingTiers = [
   { name: 'Free', price: 'Free', period: 'forever', features: ['All Features', 'Unlimited Users', '80 MB Database', '100 MB Files'] },
-  { name: 'Starter', price: 'Rs 1,990', period: 'month', features: ['All Features', 'Unlimited Users', '500 MB Database', '500 MB Files'] },
-  { name: 'Professional', price: 'Rs 4,990', period: 'month', features: ['All Features', 'Unlimited Users', '3 GB Database', '2 GB Files'], popular: true },
+  { name: 'Starter', price: 'Ush 1,990', period: 'month', features: ['All Features', 'Unlimited Users', '500 MB Database', '500 MB Files'] },
+  { name: 'Professional', price: 'Ush 4,990', period: 'month', features: ['All Features', 'Unlimited Users', '3 GB Database', '2 GB Files'], popular: true },
 ]
 
 export default function HomeClient() {

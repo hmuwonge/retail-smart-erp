@@ -80,7 +80,7 @@ const fallbackTiers: DisplayTier[] = [
   },
   {
     name: 'Starter',
-    price: 'Rs 1,990',
+    price: 'Ush 60,000',
     period: 'month',
     features: ['All Features Included', 'Unlimited Users', 'Unlimited Locations', '500 MB Database', '500 MB File Storage', 'Email Support'],
     storage: '500 MB',
@@ -88,7 +88,7 @@ const fallbackTiers: DisplayTier[] = [
   },
   {
     name: 'Professional',
-    price: 'Rs 4,990',
+    price: 'Ush 100,000',
     period: 'month',
     features: ['All Features Included', 'Unlimited Users', 'Unlimited Locations', '3 GB Database', '2 GB File Storage', 'Email Support'],
     popular: true,
@@ -97,7 +97,7 @@ const fallbackTiers: DisplayTier[] = [
   },
   {
     name: 'Business',
-    price: 'Rs 9,990',
+    price: 'Ush 130,000',
     period: 'month',
     features: ['All Features Included', 'Unlimited Users', 'Unlimited Locations', '10 GB Database', '5 GB File Storage', 'Email Support'],
     storage: '10 GB',
@@ -105,7 +105,7 @@ const fallbackTiers: DisplayTier[] = [
   },
   {
     name: 'Enterprise',
-    price: 'Rs 24,990',
+    price: 'Ush 150,000',
     period: 'month',
     features: ['All Features Included', 'Unlimited Users', 'Unlimited Locations', '50 GB Database', '25 GB File Storage', 'Email Support'],
     storage: '50 GB',
