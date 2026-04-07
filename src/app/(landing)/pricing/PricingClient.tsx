@@ -71,9 +71,9 @@ function buildFeatureList(tier: ApiTier, isCustom: boolean): string[] {
 
 const fallbackTiers: DisplayTier[] = [
   {
-    name: 'Free',
+    name: 'Free Trial',
     price: 'Free',
-    period: 'forever',
+    period: '7 days',
     features: ['All Features Included', 'Unlimited Users', 'Unlimited Locations', '20 MB Database', '20 MB File Storage', 'Email Support'],
     storage: '20 MB',
     fileStorage: '20 MB',
@@ -115,8 +115,8 @@ const fallbackTiers: DisplayTier[] = [
 
 const faqItems = [
   {
-    question: "What's included in the free plan?",
-    answer: 'The Free plan includes every feature — POS, inventory, restaurant, auto service, accounting, HR, AI insights, and more. You get unlimited users and locations with 20 MB of database and file storage each. Perfect for trying out the system.',
+    question: "What's included in the free trial?",
+    answer: 'The 7-day Free Trial includes every feature — POS, inventory, restaurant, auto service, accounting, HR, AI insights, and more. You get unlimited users and locations with 20 MB of database and file storage each. Perfect for trying out the system.',
   },
   {
     question: 'Why do all plans have the same features?',
@@ -149,7 +149,7 @@ const faqItems = [
 ]
 
 const highlights = [
-  { icon: Gift, label: 'Free Forever', description: 'First company is 100% free. No trial, no expiry.', gradient: 'from-emerald-500 to-teal-500' },
+  { icon: Gift, label: '7-Day Free Trial', description: 'Start your first company with a full-feature 7-day trial. No credit card required.', gradient: 'from-emerald-500 to-teal-500' },
   { icon: Sparkles, label: 'AI-Powered Analytics', description: 'AI chat assistant and smart warnings built in.', gradient: 'from-violet-500 to-purple-500' },
   { icon: Users, label: 'Unlimited Users', description: 'No per-user fees on any plan.', gradient: 'from-blue-500 to-sky-500' },
   { icon: Shield, label: 'Advanced Security', description: 'Complete data isolation and encryption.', gradient: 'from-stone-600 to-stone-700' },
@@ -220,7 +220,7 @@ export default function PricingClient() {
       return {
         name: tier.displayName,
         price: priceDisplay,
-        period: isFree ? 'forever' : 'month',
+        period: isFree ? '7 days' : 'month',
         features: buildFeatureList(tier, false),
         popular: tier.name === 'professional',
         storage: tier.maxDatabaseBytes ? formatBytes(tier.maxDatabaseBytes) : undefined,
@@ -235,7 +235,7 @@ export default function PricingClient() {
 
   const comparisonHeaders = apiTiers.length > 0
     ? apiTiers.map(t => t.displayName)
-    : ['Free', 'Starter', 'Professional', 'Business', 'Enterprise']
+    : ['Free Trial', 'Starter', 'Professional', 'Business', 'Enterprise']
 
   const comparisonRows = apiTiers.length > 0
     ? [
@@ -276,7 +276,7 @@ export default function PricingClient() {
           </BlurFadeIn>
           <BlurFadeIn delay={0.2}>
             <p className="mt-6 text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              All features on every plan. Unlimited users. Only pay for storage as you grow. Your first company is free forever — no credit card needed.
+              All features on every plan. Unlimited users. Only pay for storage as you grow. Start your first company with a 7-day trial — no credit card needed.
             </p>
           </BlurFadeIn>
         </div>
@@ -313,7 +313,7 @@ export default function PricingClient() {
               </button>
             </div>
             <p className="text-xs text-zinc-500 mt-2">
-              Your first company is always free
+              Start with a 7-day trial for your first company
               {currency !== 'LKR' && !currencyLoading && (
                 <span> &middot; Prices shown in {currency} (approximate conversion)</span>
               )}
@@ -390,8 +390,8 @@ export default function PricingClient() {
 
       {/* ── CTA ── */}
       <CTASection
-        title="Get started for free today"
-        subtitle="Free Forever · No Credit Card. All features included from day one. Unlimited users."
+        title="Get started with a 7-day trial"
+        subtitle="7-Day Trial · No Credit Card. All features included from day one. Unlimited users."
       />
     </PageWrapper>
   )

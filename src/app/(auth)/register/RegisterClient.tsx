@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  Check, Lock, ShieldCheck, LogIn, X,
+  Check, Lock, ShieldCheck, LogIn, X, Gift,
 } from 'lucide-react'
 import { Logo } from '@/components/ui/logo'
 import { MockDashboard } from '@/components/landing/mockups/MockDashboard'
@@ -121,7 +121,7 @@ export default function RegisterClient() {
               journey <span className="bg-gradient-to-r from-amber-300 to-emerald-300 bg-clip-text text-transparent">today.</span>
             </h2>
             <p className="text-lg text-emerald-200 mb-10 max-w-md">
-              Create your free account and add your first business in minutes.
+              Create your account and add your first business with a 7-day free trial.
             </p>
 
             {/* App mockup preview */}
@@ -152,10 +152,10 @@ export default function RegisterClient() {
           </div>
 
           <div className="flex items-center gap-3">
-            <ShieldCheck size={20} className="text-emerald-300 flex-shrink-0" />
+            <Gift size={24} className="text-emerald-300 flex-shrink-0" />
             <div>
               <p className="text-sm text-emerald-200">Trusted by businesses everywhere</p>
-              <p className="text-base font-bold text-white">Your First Company is Free Forever</p>
+              <p className="text-base font-bold text-white">7-Day Free Trial Included</p>
             </div>
           </div>
         </div>

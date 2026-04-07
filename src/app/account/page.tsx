@@ -30,6 +30,7 @@ import {
   Sparkles,
   TrendingUp,
   Star,
+  Clock,
 } from 'lucide-react'
 import { formatCurrencyWithSymbol } from '@/lib/utils/currency'
 import { toast } from '@/components/ui/toast'
@@ -99,12 +100,12 @@ const faqs: FAQ[] = [
     answer: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we\'ll prorate your billing accordingly.',
   },
   {
-    question: 'What happens when my subscription ends?',
-    answer: 'Your first company is completely free forever with full access to all features. Additional companies require a paid plan. If a paid subscription expires, your company will be locked — upgrade within 7 days to keep your data.',
+    question: 'How long is the free trial?',
+    answer: 'Your first company starts with a 7-day full-feature free trial. No credit card is required to start.',
   },
   {
-    question: 'What happens if my company gets locked?',
-    answer: 'When locked (subscription expired or storage exceeded), you cannot access your company data. You have 7 days to upgrade or renew before data is permanently deleted.',
+    question: 'What happens when my trial or subscription ends?',
+    answer: 'When your trial or subscription period ends, your company will enter a grace period. If you don\'t upgrade or renew, access will be locked. You then have 7 days to restore access before data is permanently deleted.',
   },
   {
     question: 'Are all features really included on every plan?',
@@ -210,7 +211,7 @@ function CompanyCard({
   const [opening, setOpening] = useState(false)
 
   const trialEndsAt = company.subscription?.trialEndsAt
-  const _daysUntilTrialEnds = useMemo(() => {
+  const daysUntilTrialEnds = useMemo(() => {
     if (!trialEndsAt) return null
     return Math.ceil((new Date(trialEndsAt).getTime() - currentTime) / (1000 * 60 * 60 * 24))
   }, [trialEndsAt, currentTime])
@@ -316,7 +317,7 @@ function CompanyCard({
                 company.subscription.status === 'past_due' ? 'bg-red-500' : 'bg-gray-500'
               }`} />
               {company.subscription.status === 'trial'
-                ? 'Free'
+                ? 'Free Trial'
                 : company.subscription.status === 'locked'
                 ? 'Locked'
                 : company.subscription.tierName || company.subscription.status}
@@ -390,7 +391,31 @@ function CompanyCard({
           </div>
         )}
 
-        {/* Trial Warning - removed: free plan has no expiry */}
+        {/* Trial Warning */}
+        {company.subscription?.status === 'trial' && daysUntilTrialEnds !== null && (
+          <div className={`mb-5 p-4 rounded-md border ${
+            daysUntilTrialEnds <= 2 ? 'bg-amber-50 border-amber-200' : 'bg-blue-50 border-blue-100'
+          }`}>
+            <div className="flex items-center gap-3">
+              <Clock className={`w-5 h-5 ${daysUntilTrialEnds <= 2 ? 'text-amber-600' : 'text-blue-600'}`} />
+              <div className="flex-1">
+                <p className={`text-sm font-medium ${daysUntilTrialEnds <= 2 ? 'text-amber-800' : 'text-blue-800'}`}>
+                  {daysUntilTrialEnds <= 0 
+                    ? 'Trial expires today' 
+                    : `Trial expires in ${daysUntilTrialEnds} day${daysUntilTrialEnds === 1 ? '' : 's'}`}
+                </p>
+                <Link
+                  href={`/account/subscription/${company.id}`}
+                  className={`text-xs font-semibold uppercase tracking-wider ${
+                    daysUntilTrialEnds <= 2 ? 'text-amber-700 hover:text-amber-900' : 'text-blue-700 hover:text-blue-900'
+                  }`}
+                >
+                  Upgrade Now
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Action Button - Opens in new tab on tenant subdomain with transfer token */}
         <button
@@ -837,10 +862,10 @@ export default function AccountDashboard() {
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 text-white text-center">
           <div className="flex items-center justify-center gap-3 mb-3">
             <Zap className="w-6 h-6" />
-            <h3 className="text-xl font-semibold">Free Forever</h3>
+            <h3 className="text-xl font-semibold">7-Day Free Trial</h3>
           </div>
           <p className="text-blue-100 max-w-md mx-auto">
-            Every new business gets full access to all features. No credit card required to start.
+            Every new business gets a 7-day full-feature trial. No credit card required to start.
           </p>
         </div>
       </div>
@@ -874,7 +899,7 @@ export default function AccountDashboard() {
           icon={Building2}
           label="Total Sites"
           value={stats.totalSites.toString()}
-          subValue={`${stats.activeSites} active, ${stats.freeSites} free`}
+          subValue={`${stats.activeSites} active, ${stats.freeSites} trial`}
           color="blue"
         />
         <StatCard
@@ -992,7 +1017,7 @@ export default function AccountDashboard() {
             </div>
             <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
               <TrendingUp className="w-5 h-5" />
-              <span className="text-sm font-medium">Free Plan</span>
+              <span className="text-sm font-medium">Flexible Plans</span>
             </div>
           </div>
         </div>
@@ -1091,7 +1116,7 @@ export default function AccountDashboard() {
               {deleteModal.company?.subscription && ['trial', 'active', 'past_due'].includes(deleteModal.company.subscription.status) && (
                 <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
                   <p className="text-sm text-blue-800 dark:text-blue-200">
-                    Your remaining {deleteModal.company.subscription.status === 'trial' ? 'free plan' : 'plan'} time will be saved and applied to your next company.
+                    Your remaining {deleteModal.company.subscription.status === 'trial' ? 'trial' : 'plan'} time will be saved and applied to your next company.
                   </p>
                 </div>
               )}
