@@ -3,12 +3,23 @@
 import 'next/dist/server/node-environment'
 import * as dotenv from 'dotenv'
 dotenv.config()
+
+// Initialize OpenTelemetry SDK FIRST (before any other code)
+import { initOpenTelemetrySDK } from './src/lib/audit/opentelemetry-sdk'
+initOpenTelemetrySDK()
+
+// Initialize Sentry error tracking
+import { initSentry } from './src/lib/ai/sentry'
+initSentry()
+
 import { createServer, IncomingMessage, ServerResponse } from 'http'
 import type { Socket } from 'net'
 import next from 'next'
 import { wsManager } from './src/lib/websocket/server'
 import type { EntityType } from './src/lib/websocket/events'
 import { logError } from './src/lib/ai/error-logger'
+import { captureError } from './src/lib/ai/sentry'
+import { closeRedisConnection } from './src/lib/cache/redis'
 
 // Validate and set default environment variables for Railway
 if (!process.env.NEXTAUTH_URL && process.env.RAILWAY_PUBLIC_URL) {
@@ -311,22 +322,38 @@ app.prepare().then(() => {
     }
   })
 
-  // Graceful shutdown — close WS, HTTP, and DB pools
-  const shutdown = () => {
+  // Graceful shutdown — close WS, HTTP, DB pools, and Redis
+  const shutdown = async () => {
     console.log('\nShutting down server...')
+    
+    // 1. Shutdown WebSocket server
     wsManager.shutdown()
+    
+    // 2. Close HTTP server
     server.close(async () => {
-      // Close database pools to release connections
+      console.log('HTTP server closed')
+      
+      // 3. Close database pools
       try {
         const { closeAllPools } = await import('./src/lib/db')
         await closeAllPools()
         console.log('Database pools closed')
-      } catch {
-        // Pool module may not be loaded yet
+      } catch (error) {
+        console.error('Error closing database pools:', error)
       }
-      console.log('Server closed')
+      
+      // 4. Close Redis connection
+      try {
+        await closeRedisConnection()
+        console.log('Redis connection closed')
+      } catch (error) {
+        console.error('Error closing Redis connection:', error)
+      }
+      
+      console.log('Server shutdown complete')
       process.exit(0)
     })
+    
     // Force exit after 10s if graceful shutdown hangs
     setTimeout(() => {
       console.error('Forced shutdown after timeout')

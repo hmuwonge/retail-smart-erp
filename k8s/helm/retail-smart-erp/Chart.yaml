@@ -1,0 +1,16 @@
+apiVersion: v2
+name: retail-smart-erp
+description: Retail Smart ERP - Multi-tenant SaaS POS & ERP System
+type: application
+version: 1.0.0
+appVersion: "1.0.7"
+icon: https://retailsmarterp.com/logo.png
+maintainers:
+  - name: Ravindu Gajanayaka
+    email: ravindu@retailsmarterp.com
+keywords:
+  - erp
+  - pos
+  - multi-tenant
+  - saas
+  - retail

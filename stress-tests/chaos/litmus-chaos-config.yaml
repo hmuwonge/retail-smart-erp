@@ -1,0 +1,164 @@
+# Chaos Engineering Configuration for Retail Smart ERP
+# Uses Litmus Chaos for Kubernetes-based fault injection
+
+apiVersion: litmuschaos.io/v1alpha1
+kind: ChaosEngine
+metadata:
+  name: retail-smart-erp-chaos
+  namespace: retail-smart-erp
+spec:
+  # Engine state: active/stop
+  engineState: 'stop' # Start with 'stop', enable manually for testing
+
+  # Annotation mode: true/false
+  annotationCheck: 'false'
+
+  # Experiments to run
+  experiments:
+    # 1. Pod Failure - Simulate pod crashes
+    - name: pod-failure
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '60' # seconds
+            - name: CHAOS_INTERVAL
+              value: '10' # seconds
+            - name: PODS_AFFECTED_PERCENT
+              value: '50' # percent of pods to kill
+            - name: SIGNAL
+              value: 'SIGKILL'
+
+    # 2. Network Delay - Simulate latency
+    - name: network-delay
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '120'
+            - name: NETWORK_DELAY
+              value: '2000' # 2 seconds delay
+            - name: PODS_AFFECTED_PERCENT
+              value: '100'
+
+    # 3. Network Loss - Simulate network partition
+    - name: network-loss
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '60'
+            - name: NETWORK_PACKET_LOSS_PERCENTAGE
+              value: '100'
+            - name: PODS_AFFECTED_PERCENT
+              value: '50'
+
+    # 4. CPU Stress - Simulate high CPU load
+    - name: cpu-stress
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '120'
+            - name: CPU_CORES
+              value: '1' # 1 CPU core
+            - name: PODS_AFFECTED_PERCENT
+              value: '50'
+
+    # 5. Memory Stress - Simulate memory pressure
+    - name: memory-stress
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '120'
+            - name: MEMORY_PERCENTAGE
+              value: '80' # 80% of pod memory limit
+            - name: PODS_AFFECTED_PERCENT
+              value: '50'
+
+    # 6. Database Connection Loss (PostgreSQL pod kill)
+    - name: postgres-pod-failure
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '30'
+            - name: TARGET_SERVICE
+              value: 'retail-smart-erp-postgresql'
+            - name: PODS_AFFECTED_PERCENT
+              value: '100'
+
+    # 7. Redis Failure
+    - name: redis-pod-failure
+      spec:
+        components:
+          env:
+            - name: TOTAL_CHAOS_DURATION
+              value: '30'
+            - name: TARGET_SERVICE
+              value: 'retail-smart-erp-redis'
+            - name: PODS_AFFECTED_PERCENT
+              value: '100'
+
+---
+# Steady State Hypothesis Verification
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chaos-steady-state-hypothesis
+  namespace: retail-smart-erp
+data:
+  hypothesis.md: |
+    # Steady State Hypothesis
+
+    ## Before Chaos Experiment
+    - All pods are running and ready
+    - Health check returns 200 OK
+    - Database connections are healthy
+    - Redis is responding
+
+    ## During Chaos Experiment
+    - Health check may return degraded status
+    - Some requests may fail (expected)
+    - Auto-scaling should trigger
+
+    ## After Chaos Experiment
+    - All pods recover within 120 seconds
+    - Health check returns 200 OK
+    - No data loss occurred
+    - Error rate returns to baseline
+
+---
+# Chaos Experiment Schedule (run weekly in staging)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chaos-schedule
+  namespace: retail-smart-erp
+data:
+  schedule.md: |
+    # Chaos Engineering Schedule
+
+    ## When
+    - **Environment**: Staging only (never production)
+    - **Frequency**: Weekly (Saturday 2 AM)
+    - **Duration**: 30 minutes per experiment
+
+    ## Experiments by Priority
+    1. **Pod Failure** (Week 1) - Test pod resilience
+    2. **Network Delay** (Week 2) - Test latency tolerance
+    3. **Database Failure** (Week 3) - Test DB failover
+    4. **Redis Failure** (Week 4) - Test cache degradation
+
+    ## Success Criteria
+    - Application recovers automatically
+    - No manual intervention required
+    - Recovery time < 120 seconds
+    - No data corruption or loss
+
+    ## Rollback Plan
+    - Stop chaos engine immediately
+    - Restart affected pods
+    - Check database integrity
+    - Verify no orphaned transactions

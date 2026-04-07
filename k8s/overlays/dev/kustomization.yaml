@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+
+namespace: retail-smart-erp-dev
+
+replicas:
+  - name: retail-smart-erp
+    count: 1
+
+images:
+  - name: retail-smart-app
+    newTag: dev-latest
+
+configMapGenerator:
+  - name: retail-smart-erp-env
+    literals:
+      - NODE_ENV=development
+      - LOG_LEVEL=debug
+      - OTEL_ENABLED=false
+      - DISABLE_RATE_LIMITING=true
+      - SKIP_MIGRATIONS=false
+
+patches:
+  - target:
+      kind: Deployment
+      name: retail-smart-erp
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
