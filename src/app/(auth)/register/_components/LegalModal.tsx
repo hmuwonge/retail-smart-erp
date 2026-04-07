@@ -91,12 +91,12 @@ function TermsContent() {
       </section>
 
       <section>
-        <h3 className="text-base font-semibold text-white mt-6 mb-2">3. Free Forever Plan</h3>
+        <h3 className="text-base font-semibold text-white mt-6 mb-2">3. Free Trial</h3>
         <ul className="list-disc pl-5 space-y-1.5">
-          <li>Your first company (business) per account is <span className="text-white font-medium">free forever</span> with all features included</li>
-          <li>The Free plan includes 20 MB database storage and 20 MB file storage</li>
-          <li>No credit card is required to start</li>
-          <li>No time limit or trial expiry on your first company</li>
+          <li>Your first company (business) per account starts with a <span className="text-white font-medium">7-day free trial</span> with all features included</li>
+          <li>The trial includes 20 MB database storage and 20 MB file storage</li>
+          <li>No credit card is required to start the trial</li>
+          <li>After the trial period, you must upgrade to a paid plan to maintain write access to your data</li>
           <li>All features, unlimited users, and unlimited locations are included on every plan</li>
         </ul>
       </section>
@@ -104,7 +104,7 @@ function TermsContent() {
       <section>
         <h3 className="text-base font-semibold text-white mt-6 mb-2">4. Paid Plans & Pricing</h3>
         <ul className="list-disc pl-5 space-y-1.5">
-          <li>Additional companies require a paid subscription (Starter, Professional, or custom plans)</li>
+          <li>Additional companies and continued service after the trial require a paid subscription (Starter, Professional, or custom plans)</li>
           <li>Plans differ <span className="text-white font-medium">only in storage capacity</span> — all features are identical across all plans</li>
           <li>Prices are listed in LKR (Sri Lankan Rupees); approximate conversions to your local currency are shown for reference only</li>
           <li><span className="text-white font-medium">Grandfather Pricing:</span> Your subscription price is locked at the rate when you subscribed</li>
@@ -195,7 +195,7 @@ function TermsContent() {
         <ul className="list-disc pl-5 space-y-1.5">
           <li>RetailSmart ERP is provided &quot;as is&quot; without warranties of any kind</li>
           <li>Total liability is limited to amounts paid in the preceding 12 months</li>
-          <li>For Free plan users, maximum liability is limited to LKR 5,000</li>
+          <li>For trial users, maximum liability is limited to LKR 5,000</li>
         </ul>
       </section>
 
@@ -248,6 +248,7 @@ function PrivacyContent() {
           <li>Customer records, products and inventory, financial data</li>
           <li>Employee and HR data, vehicles, work orders, appointments</li>
           <li>Restaurant data, uploaded files (logos, photos, documents)</li>
+          <li>Financial reports and AI-generated insights</li>
         </ul>
 
         <h4 className="text-sm font-medium text-zinc-300 mt-4 mb-1.5">Automatically Collected</h4>

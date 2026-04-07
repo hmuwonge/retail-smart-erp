@@ -55,9 +55,9 @@ function formatBytesShort(bytes: number | null): string {
 }
 
 const fallbackPricingTiers = [
-  { name: 'Free', price: 'Free', period: 'forever', features: ['All Features', 'Unlimited Users', '80 MB Database', '100 MB Files'] },
-  { name: 'Starter', price: 'Rs 1,990', period: 'month', features: ['All Features', 'Unlimited Users', '500 MB Database', '500 MB Files'] },
-  { name: 'Professional', price: 'Rs 4,990', period: 'month', features: ['All Features', 'Unlimited Users', '3 GB Database', '2 GB Files'], popular: true },
+  { name: 'Free Trial', price: 'Free', period: '7 days', features: ['All Features', 'Unlimited Users', '80 MB Database', '100 MB Files'] },
+  { name: 'Starter', price: 'Ush 1,990', period: 'month', features: ['All Features', 'Unlimited Users', '500 MB Database', '500 MB Files'] },
+  { name: 'Professional', price: 'Ush 4,990', period: 'month', features: ['All Features', 'Unlimited Users', '3 GB Database', '2 GB Files'], popular: true },
 ]
 
 export default function HomeClient() {
@@ -109,7 +109,7 @@ export default function HomeClient() {
           return {
             name: tier.displayName,
             price: priceDisplay,
-            period: isFree ? 'forever' : 'month',
+            period: isFree ? '7 days' : 'month',
             features,
             popular: tier.name === 'professional',
             isCustom: false,
@@ -169,7 +169,7 @@ export default function HomeClient() {
                   />
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 backdrop-blur-sm">
                     <Check className="w-3.5 h-3.5" />
-                    Free Forever
+                    7-Day Trial
                   </span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-white tracking-tight">
@@ -179,14 +179,14 @@ export default function HomeClient() {
                 <p className="mt-6 text-lg sm:text-xl text-white/80 leading-relaxed max-w-xl">
                   POS, inventory, accounting, HR, and AI analytics — all in one platform.
                   Built for retail, restaurants, supermarkets, and auto service.{' '}
-                  <strong className="text-white">Free Forever. Unlimited Users. No Credit Card.</strong>
+                  <strong className="text-white">Start with a 7-day Free Trial. Unlimited Users. No Credit Card.</strong>
                 </p>
                 <div className="mt-8 flex flex-wrap gap-4">
                   <Link
                     href="/register"
                     className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 rounded-md transition-all shadow-lg shadow-emerald-600/25 hover:shadow-emerald-600/40 hover:-translate-y-0.5"
                   >
-                    Get Started Free
+                    Start Free Trial
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                   <Link
@@ -199,7 +199,7 @@ export default function HomeClient() {
                 <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-white/60">
                   <div className="flex items-center gap-1.5">
                     <Gift className="w-4 h-4 text-emerald-400" />
-                    Free Forever
+                    7-Day Free Trial
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Users className="w-4 h-4 text-emerald-400" />
@@ -581,7 +581,7 @@ export default function HomeClient() {
                     number: 1,
                     icon: UserPlus,
                     title: 'Create Account',
-                    description: 'Sign up in seconds. Your first company is free forever. Choose your country and verify your email.',
+                    description: 'Sign up in seconds. Your first company starts with a 7-day trial. Choose your country and verify your email.',
                   },
                   {
                     number: 2,
@@ -640,7 +640,7 @@ export default function HomeClient() {
             badge="Pricing"
             title="Simple, transparent pricing"
             highlight="transparent pricing"
-            subtitle="All features on every plan. No per-user fees. Your first company is free forever."
+            subtitle="All features on every plan. No per-user fees. Start with a 7-day trial for your first company."
           />
 
           {/* All features badge */}
@@ -681,7 +681,7 @@ export default function HomeClient() {
          ══════════════════════════════════════════════ */}
       <CTASection
         title="Ready to transform your business?"
-        subtitle="Start managing your business with RetailSmart ERP. All features included, unlimited users, free forever."
+        subtitle="Start managing your business with RetailSmart ERP. All features included, unlimited users, 7-day free trial."
       />
     </PageWrapper>
   )

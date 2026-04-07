@@ -114,16 +114,16 @@ export default function PricingPage() {
             {
               "@context": "https://schema.org",
               "@type": "Product",
-              "name": "RetailSmart ERP",
+              "name": "NextSmart ERP",
               "description": "All-in-one AI-powered cloud POS and ERP. All features on every plan. Unlimited users and transactions.",
               "brand": {
                 "@type": "Brand",
-                "name": "RetailSmart"
+                "name": "NextSmart"
               },
               "offers": {
                 "@type": "Offer",
                 "price": "0",
-                "priceCurrency": "USD",
+                "priceCurrency": "UGX",
                 "availability": "https://schema.org/InStock",
                 "description": "Free plan - All features included, unlimited users, 20 MB storage"
               }

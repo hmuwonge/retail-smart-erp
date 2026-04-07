@@ -247,7 +247,7 @@ export async function createCompanySafely(options: CompanyCreationOptions): Prom
       })
     }
 
-    // Flow A: First company → create immediately (free forever, no expiry)
+    // Flow A: First company → create immediately with a 7-day trial
     return await withRetry(async () => {
       return await withTransactionIsolation(async (tx) => {
         // Check slug availability with lock
@@ -269,8 +269,10 @@ export async function createCompanySafely(options: CompanyCreationOptions): Prom
         const countryInfo = getCountryByCode(options.country)
         const currency = countryInfo?.currency || 'LKR'
         const now = new Date()
+        const trialEndsAt = new Date(now)
+        trialEndsAt.setDate(trialEndsAt.getDate() + 7) // 7-day trial
 
-        // Create tenant - first company is free forever (no expiry)
+        // Create tenant - first company gets 7-day trial
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const [tenant] = await (tx as any).insert(schema.tenants).values({
           name: options.name.trim(),
@@ -285,23 +287,23 @@ export async function createCompanySafely(options: CompanyCreationOptions): Prom
           timeFormat: options.timeFormat,
           primaryOwnerId: options.accountId,
           plan: 'trial',
-          planExpiresAt: null,
+          planExpiresAt: trialEndsAt,
           status: 'active',
         }).returning()
 
         // Set tenant context for RLS
         await tx.execute(sql`SELECT set_config('app.tenant_id', ${tenant.id}, true)`)
 
-        // Create subscription (free forever - no trial end date)
+        // Create subscription with 7-day trial
         if (trialTier) {
           await tx.insert(schema.subscriptions).values({
             tenantId: tenant.id,
             billingAccountId: options.accountId,
             tierId: trialTier.id,
             status: 'trial',
-            trialEndsAt: null,
+            trialEndsAt: trialEndsAt,
             currentPeriodStart: now,
-            currentPeriodEnd: new Date('2099-12-31'),
+            currentPeriodEnd: trialEndsAt,
             billingCycle: 'monthly',
           })
         }
