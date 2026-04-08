@@ -1,4 +1,4 @@
-const BASE_URL = 'https://www.retailsmarterp.com'
+const BASE_URL = 'https://www.localhost:3000'
 
 export function generateBreadcrumbJsonLd(items: { name: string; url?: string }[]) {
   return {

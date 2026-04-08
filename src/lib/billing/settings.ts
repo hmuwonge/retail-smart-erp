@@ -82,7 +82,7 @@ export interface ContactInfo {
 }
 
 const DEFAULT_CONTACT_INFO: ContactInfo = {
-  email: 'support@retailsmarterp.com',
+  email: 'support@localhost:3000',
   phone: '+94 11 234 5678',
   whatsapp: '+94 77 123 4567',
   address: 'Colombo, Sri Lanka',

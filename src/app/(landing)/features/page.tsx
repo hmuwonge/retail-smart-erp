@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Every Feature Included on Every Plan | RetailSmart ERP',
     description: 'POS, inventory, accounting, HR, restaurant, auto service, and AI analytics. No feature gating. No hidden costs.',
-    url: 'https://www.retailsmarterp.com/features',
+    url: 'https://www.localhost:3000/features',
     images: [{ url: '/og/features', width: 1200, height: 630, alt: 'RetailSmart ERP Features' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/features'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/features',
+    canonical: 'https://www.localhost:3000/features',
   },
 }
 
@@ -51,8 +51,8 @@ export default function FeaturesPage() {
                 "@type": "HowToStep",
                 "position": 1,
                 "name": "Create your free account",
-                "text": "Register at retailsmarterp.com with your email. No credit card required.",
-                "url": "https://www.retailsmarterp.com/register"
+                "text": "Register at localhost:3000 with your email. No credit card required.",
+                "url": "https://www.localhost:3000/register"
               },
               {
                 "@type": "HowToStep",

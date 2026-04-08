@@ -193,7 +193,7 @@ export default function DealershipClient() {
             {/* Right: Hero mockup */}
             <FadeInRight className="hidden lg:block">
               <FloatingMockup>
-                <BrowserMockup url="retailsmarterp.com/vehicles">
+                <BrowserMockup url="localhost:3000/vehicles">
                   <MockVehicleInventory />
                 </BrowserMockup>
               </FloatingMockup>

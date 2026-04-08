@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'cdn.retailsmarterp.com',
+        hostname: 'cdn.localhost:3000',
       },
       {
         protocol: 'https',
@@ -72,10 +72,10 @@ const nextConfig: NextConfig = {
               "script-src 'self' 'unsafe-inline' https://www.payhere.lk https://sandbox.payhere.lk https://static.cloudflareinsights.com https://www.googletagmanager.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://cdn.retailsmarterp.com https://lh3.googleusercontent.com https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com",
-              "media-src 'self' blob: https://cdn.retailsmarterp.com https://*.r2.cloudflarestorage.com",
-              "connect-src 'self' https://*.retailsmarterp.com wss://*.retailsmarterp.com ws://localhost:* https://api.resend.com https://www.payhere.lk https://sandbox.payhere.lk https://generativelanguage.googleapis.com https://api.deepseek.com https://*.cloudflareinsights.com https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com https://*.google-analytics.com https://stats.g.doubleclick.net",
-              "frame-src 'self' blob: https://cdn.retailsmarterp.com https://*.r2.cloudflarestorage.com https://www.payhere.lk https://sandbox.payhere.lk",
+              "img-src 'self' data: blob: https://*.r2.cloudflarestorage.com https://cdn.localhost:3000 https://lh3.googleusercontent.com https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com",
+              "media-src 'self' blob: https://cdn.localhost:3000 https://*.r2.cloudflarestorage.com",
+              "connect-src 'self' https://*.localhost:3000 wss://*.localhost:3000 ws://localhost:* https://api.resend.com https://www.payhere.lk https://sandbox.payhere.lk https://generativelanguage.googleapis.com https://api.deepseek.com https://*.cloudflareinsights.com https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com https://*.google-analytics.com https://stats.g.doubleclick.net",
+              "frame-src 'self' blob: https://cdn.localhost:3000 https://*.r2.cloudflarestorage.com https://www.payhere.lk https://sandbox.payhere.lk",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self' https://www.payhere.lk https://sandbox.payhere.lk",

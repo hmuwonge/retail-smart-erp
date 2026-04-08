@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Simple, Transparent Pricing | RetailSmart ERP',
     description: 'All features. Unlimited users. Free forever. Only pay for storage as you grow.',
-    url: 'https://www.retailsmarterp.com/pricing',
+    url: 'https://www.localhost:3000/pricing',
     images: [{ url: '/og/pricing', width: 1200, height: 630, alt: 'RetailSmart ERP Pricing' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/pricing'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/pricing',
+    canonical: 'https://www.localhost:3000/pricing',
   },
 }
 

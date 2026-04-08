@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Terms of Service - RetailSmart ERP',
     description: 'Terms of Service for RetailSmart ERP. Read our terms and conditions for using the platform.',
-    url: 'https://www.retailsmarterp.com/terms',
+    url: 'https://www.localhost:3000/terms',
     type: 'website',
   },
   twitter: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'Terms of Service for RetailSmart ERP. Read our terms and conditions for using the platform.',
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/terms',
+    canonical: 'https://www.localhost:3000/terms',
   },
 }
 
@@ -213,7 +213,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-white mt-8 mb-3">18. Contact</h2>
-            <p>For questions about these terms, please reach out through our <a href="/contact" className="text-emerald-400 hover:text-emerald-300 hover:underline">contact page</a> or email <a href="mailto:support@retailsmarterp.com" className="text-emerald-400 hover:text-emerald-300 hover:underline">support@retailsmarterp.com</a>.</p>
+            <p>For questions about these terms, please reach out through our <a href="/contact" className="text-emerald-400 hover:text-emerald-300 hover:underline">contact page</a> or email <a href="mailto:support@localhost:3000" className="text-emerald-400 hover:text-emerald-300 hover:underline">support@localhost:3000</a>.</p>
           </section>
         </div>
       </div>

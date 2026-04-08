@@ -40,7 +40,7 @@ async function clearLoginRateLimit(email: string): Promise<void> {
 // Determine cookie domain based on environment
 const getCookieDomain = () => {
   if (process.env.NODE_ENV === 'production') {
-    return '.retailsmarterp.com' // Share cookies across all subdomains
+    return '.localhost:3000' // Share cookies across all subdomains
   }
   return undefined // Local development: no domain restriction
 }

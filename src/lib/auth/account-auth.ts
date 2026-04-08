@@ -12,7 +12,7 @@ import { checkRateLimit, recordRateLimitAttempt, clearRateLimit, LOGIN_RATE_LIMI
 // Determine cookie domain based on environment
 const getCookieDomain = () => {
   if (process.env.NODE_ENV === 'production') {
-    return '.retailsmarterp.com'
+    return '.localhost:3000'
   }
   return undefined
 }

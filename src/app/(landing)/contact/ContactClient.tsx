@@ -17,7 +17,7 @@ import ContactForm from '@/components/landing/ContactForm'
 import CTASection from '@/components/landing/CTASection'
 
 const defaultContactInfo = {
-  email: 'hello@retailsmarterp.com',
+  email: 'hello@localhost:3000',
   phone: '+94 77 840 7616',
   whatsapp: '+94 77 840 7616',
   address: 'No 31, Akuressa Road, Nupe, Matara, Sri Lanka',

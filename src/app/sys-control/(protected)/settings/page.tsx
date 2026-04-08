@@ -1208,7 +1208,7 @@ export default function SettingsPage() {
                     type="email"
                     value={contactInfo.email}
                     onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                    placeholder="support@retailsmarterp.com"
+                    placeholder="support@localhost:3000"
                     className={INPUT_CLASS}
                   />
                 </div>
