@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact RetailSmart ERP',
     description: 'Questions? Our team is ready to help you get started with AI-powered business management.',
-    url: 'https://www.retailsmarterp.com/contact',
+    url: 'https://www.localhost:3000/contact',
     images: [{ url: '/og/contact', width: 1200, height: 630, alt: 'Contact RetailSmart ERP' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/contact'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/contact',
+    canonical: 'https://www.localhost:3000/contact',
   },
 }
 
@@ -44,11 +44,11 @@ export default function ContactPage() {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "RetailSmart ERP",
-            "url": "https://www.retailsmarterp.com",
-            "logo": "https://www.retailsmarterp.com/icons/icon-512.png",
+            "url": "https://www.localhost:3000",
+            "logo": "https://www.localhost:3000/icons/icon-512.png",
             "contactPoint": {
               "@type": "ContactPoint",
-              "email": "support@retailsmarterp.com",
+              "email": "support@localhost:3000",
               "contactType": "customer support",
               "availableLanguage": ["English"]
             }

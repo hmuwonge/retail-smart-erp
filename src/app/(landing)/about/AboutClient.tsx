@@ -129,7 +129,7 @@ export default function AboutClient() {
               </div>
             </FadeInLeft>
             <FadeInRight>
-              <BrowserMockup url="app.retailsmarterp.com/dashboard">
+              <BrowserMockup url="app.localhost:3000/dashboard">
                 <MockDashboard />
               </BrowserMockup>
             </FadeInRight>

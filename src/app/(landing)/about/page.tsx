@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About RetailSmart ERP - Building the Future of Business Management',
     description: 'Our mission: AI-powered business tools for every entrepreneur. Unlimited users, unlimited potential.',
-    url: 'https://www.retailsmarterp.com/about',
+    url: 'https://www.localhost:3000/about',
     images: [{ url: '/og/about', width: 1200, height: 630, alt: 'About RetailSmart ERP' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/about'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/about',
+    canonical: 'https://www.localhost:3000/about',
   },
 }
 
@@ -44,12 +44,12 @@ export default function AboutPage() {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "RetailSmart ERP",
-            "url": "https://www.retailsmarterp.com",
-            "logo": "https://www.retailsmarterp.com/icons/icon-512.png",
+            "url": "https://www.localhost:3000",
+            "logo": "https://www.localhost:3000/icons/icon-512.png",
             "description": "Democratizing AI-powered business tools for every entrepreneur. All-in-one cloud POS and ERP for retail, restaurants, supermarkets, and auto service centers.",
             "foundingDate": "2024",
             "sameAs": [
-              "https://www.retailsmarterp.com"
+              "https://www.localhost:3000"
             ]
           })
         }}

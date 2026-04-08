@@ -31,7 +31,7 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\n\n${form.message}`
     )
-    window.open(`mailto:hello@retailsmarterp.com?subject=${subject}&body=${body}`, '_blank')
+    window.open(`mailto:hello@localhost:3000?subject=${subject}&body=${body}`, '_blank')
 
     setSending(false)
     setSent(true)

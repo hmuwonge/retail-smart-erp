@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Auto Service Management System | RetailSmart ERP',
     description: 'Work orders, vehicle tracking, inspections, insurance estimates. AI-powered. Unlimited users.',
-    url: 'https://www.retailsmarterp.com/auto-service',
+    url: 'https://www.localhost:3000/auto-service',
     images: [{ url: '/og/auto-service', width: 1200, height: 630, alt: 'RetailSmart ERP Auto Service Management' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/auto-service'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/auto-service',
+    canonical: 'https://www.localhost:3000/auto-service',
   },
 }
 

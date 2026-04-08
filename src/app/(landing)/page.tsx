@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'RetailSmart ERP - AI-Powered POS & Business Management',
     description: 'Unlimited users. AI-assisted insights. All features on every plan. Free to start.',
-    url: 'https://www.retailsmarterp.com/',
+    url: 'https://www.localhost:3000/',
     images: [{ url: '/og/home', width: 1200, height: 630, alt: 'RetailSmart ERP - AI-Powered POS & Business Management' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/home'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/',
+    canonical: 'https://www.localhost:3000/',
   },
 }
 
@@ -39,11 +39,11 @@ export default function HomePage() {
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "RetailSmart ERP",
-              "url": "https://www.retailsmarterp.com",
+              "url": "https://www.localhost:3000",
               "description": "All-in-one AI-powered cloud POS and ERP for retail, restaurants, supermarkets, and auto service.",
               "potentialAction": {
                 "@type": "SearchAction",
-                "target": "https://www.retailsmarterp.com/features?q={search_term_string}",
+                "target": "https://www.localhost:3000/features?q={search_term_string}",
                 "query-input": "required name=search_term_string"
               }
             },
@@ -51,11 +51,11 @@ export default function HomePage() {
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "RetailSmart ERP",
-              "url": "https://www.retailsmarterp.com",
-              "logo": "https://www.retailsmarterp.com/icons/icon-512.png",
+              "url": "https://www.localhost:3000",
+              "logo": "https://www.localhost:3000/icons/icon-512.png",
               "description": "Cloud POS and business management platform with AI features for retail, restaurants, supermarkets, and auto service centers. Unlimited users on every plan.",
               "sameAs": [
-                "https://www.retailsmarterp.com"
+                "https://www.localhost:3000"
               ]
             },
             {
@@ -64,9 +64,9 @@ export default function HomePage() {
               "name": "RetailSmart ERP",
               "applicationCategory": "BusinessApplication",
               "operatingSystem": "Web",
-              "url": "https://www.retailsmarterp.com",
-              "downloadUrl": "https://www.retailsmarterp.com/register",
-              "screenshot": "https://www.retailsmarterp.com/og/home",
+              "url": "https://www.localhost:3000",
+              "downloadUrl": "https://www.localhost:3000/register",
+              "screenshot": "https://www.localhost:3000/og/home",
               "softwareVersion": "1.0",
               "description": "All-in-one cloud POS and ERP with AI features for retail, restaurants, supermarkets, and auto service. Unlimited users. All features on every plan.",
               "featureList": [

@@ -1,6 +1,6 @@
 // System-level email transport for OTP and system emails
 // Independent of tenant email settings
-// Uses Resend API (retailsmarterp.com verified domain)
+// Uses Resend API (localhost:3000 verified domain)
 
 /** Escape HTML entities to prevent XSS in email templates */
 function escapeHtml(s: string): string {
@@ -29,7 +29,7 @@ export async function sendSystemEmail(options: {
     return { success: true, dev: true }
   }
 
-  const senderEmail = process.env.SYSTEM_EMAIL_FROM || 'noreply@retailsmarterp.com'
+  const senderEmail = process.env.SYSTEM_EMAIL_FROM || 'noreply@localhost:3000'
   const senderName = process.env.NEXT_PUBLIC_APP_NAME || 'Retail Smart POS'
 
   const res = await fetch('https://api.resend.com/emails', {
