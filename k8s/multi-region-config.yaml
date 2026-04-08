@@ -1,0 +1,183 @@
+# Multi-Region Deployment Configuration
+# Supports active-active deployment across multiple regions
+
+regions:
+  primary:
+    name: us-east-1
+    location: Virginia, USA
+    provider: aws
+    kubernetes:
+      cluster: retail-smart-erp-us-east
+      nodeCount: 5
+      instanceType: t3.xlarge
+    database:
+      type: postgresql
+      instanceType: db.r5.xlarge
+      storage: 500Gi
+      multiAZ: true
+      readReplicas: 2
+    redis:
+      type: elasticache
+      instanceType: cache.r5.large
+      clusterMode: true
+      numNodes: 3
+    cdn:
+      provider: cloudfront
+      enabled: true
+
+  secondary:
+    name: eu-west-1
+    location: Ireland
+    provider: aws
+    kubernetes:
+      cluster: retail-smart-erp-eu-west
+      nodeCount: 5
+      instanceType: t3.xlarge
+    database:
+      type: postgresql
+      instanceType: db.r5.xlarge
+      storage: 500Gi
+      multiAZ: true
+      readReplicas: 2
+      replication:
+        sourceRegion: us-east-1
+        lagTolerance: 5s # Maximum acceptable replication lag
+    redis:
+      type: elasticache
+      instanceType: cache.r5.large
+      clusterMode: true
+      numNodes: 3
+      replication:
+        sourceRegion: us-east-1
+    cdn:
+      provider: cloudfront
+      enabled: true
+
+  tertiary:
+    name: ap-southeast-1
+    location: Singapore
+    provider: aws
+    kubernetes:
+      cluster: retail-smart-erp-ap-southeast
+      nodeCount: 3
+      instanceType: t3.large
+    database:
+      type: postgresql
+      instanceType: db.r5.large
+      storage: 200Gi
+      multiAZ: true
+      readReplicas: 1
+      replication:
+        sourceRegion: us-east-1
+        lagTolerance: 10s
+    redis:
+      type: elasticache
+      instanceType: cache.r5.large
+      clusterMode: false
+      numNodes: 2
+    cdn:
+      provider: cloudfront
+      enabled: true
+
+# Global Load Balancer
+globalLoadBalancer:
+  type: route53
+  healthCheck:
+    endpoint: /api/health
+    interval: 30s
+    failureThreshold: 3
+  routingPolicy: latency # Route to lowest latency region
+  failover: automatic
+
+# Data Replication Strategy
+dataReplication:
+  database:
+    type: logical_replication # PostgreSQL logical replication
+    conflictResolution: last_writer_wins
+    replicationSlots:
+      - name: eu_west_1_slot
+        region: eu-west-1
+      - name: ap_southeast_1_slot
+        region: ap-southeast-1
+    maxLagAlertThreshold: 30s # Alert if lag exceeds 30s
+
+  redis:
+    type: active_passive # Active-passive for cross-region
+    failover: automatic
+    syncInterval: 1s
+
+  fileStorage:
+    type: s3_cross_region_replication
+    buckets:
+      - name: retail-smart-erp-files
+        regions:
+          - us-east-1
+          - eu-west-1
+          - ap-southeast-1
+
+# Traffic Distribution
+trafficDistribution:
+  default:
+    us-east-1: 60%
+    eu-west-1: 25%
+    ap-southeast-1: 15%
+  failover:
+    # If primary fails, shift to secondary
+    us-east-1: 0%
+    eu-west-1: 70%
+    ap-southeast-1: 30%
+
+# Monitoring & Observability
+monitoring:
+  globalDashboard:
+    provider: grafana-cloud
+    dashboards:
+      - name: Multi-Region Overview
+        url: https://your-org.grafana.net/d/multi-region
+      - name: Database Replication Lag
+        url: https://your-org.grafana.net/d/db-replication
+      - name: Cross-Region Latency
+        url: https://your-org.grafana.net/d/cross-region-latency
+
+  alerts:
+    - name: High Replication Lag
+      condition: replication_lag > 30s
+      severity: critical
+      notification: pagerduty
+
+    - name: Region Unhealthy
+      condition: health_check_failures > 3
+      severity: critical
+      notification: pagerduty
+
+    - name: High Cross-Region Latency
+      condition: p99_latency > 500ms
+      severity: warning
+      notification: slack
+
+# Deployment Strategy
+deploymentStrategy:
+  type: rolling_across_regions
+  maxRegionsAtOnce: 1 # Deploy to one region at a time
+  rollbackOnFailure: automatic
+  verificationSteps:
+    - health_check
+    - smoke_tests
+    - canary_analysis
+    - full_rollout
+
+# Disaster Recovery
+disasterRecovery:
+  rpo: 5m # Recovery Point Objective (max data loss)
+  rto: 15m # Recovery Time Objective (max downtime)
+  backupStrategy:
+    database:
+      frequency: every_5m # Continuous WAL archiving
+      retention: 30d
+      crossRegion: true
+    fileStorage:
+      frequency: real_time # S3 versioning + replication
+      retention: 90d
+    configuration:
+      frequency: on_change
+      retention: 180d

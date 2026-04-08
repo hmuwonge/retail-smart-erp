@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "retail-smart-erp.fullname" . }}-config
+  labels:
+    {{- include "retail-smart-erp.labels" . | nindent 4 }}
+data:
+  NODE_ENV: {{ .Values.env.NODE_ENV | quote }}
+  PORT: {{ .Values.service.port | quote }}
+  WS_PORT: {{ .Values.service.wsPort | quote }}
+  NEXT_PUBLIC_APP_NAME: {{ .Values.env.NEXT_PUBLIC_APP_NAME | quote }}
+  NEXT_PUBLIC_BASE_DOMAIN: {{ .Values.env.NEXT_PUBLIC_BASE_DOMAIN | quote }}
+  NEXT_PUBLIC_LANDING_DOMAIN: {{ .Values.env.NEXT_PUBLIC_LANDING_DOMAIN | quote }}
+  NEXT_PUBLIC_APP_DOMAIN: {{ .Values.env.NEXT_PUBLIC_APP_DOMAIN | quote }}
+  ALLOWED_HOSTS: {{ .Values.env.ALLOWED_HOSTS | quote }}
+  SKIP_MIGRATIONS: {{ .Values.env.SKIP_MIGRATIONS | quote }}
+  REQUIRE_MIGRATIONS: {{ .Values.env.REQUIRE_MIGRATIONS | quote }}
+  OTEL_ENABLED: {{ .Values.env.OTEL_ENABLED | quote }}
+  OTEL_SERVICE_NAME: {{ .Values.env.OTEL_SERVICE_NAME | quote }}
+  OTEL_EXPORTER_OTLP_ENDPOINT: "http://{{ include "retail-smart-erp.fullname" . }}-otel-collector:4318"
+  DISABLE_RATE_LIMITING: {{ .Values.env.DISABLE_RATE_LIMITING | quote }}
+  {{- if .Values.redis.enabled }}
+  REDIS_URL: "redis://{{ include "retail-smart-erp.fullname" . }}-redis-master:6379"
+  {{- end }}
