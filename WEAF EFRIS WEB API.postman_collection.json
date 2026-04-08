@@ -1,0 +1,2256 @@
+{
+    "info": {
+        "_postman_id": "69d6130577bbc",
+        "name": "WEAF EFRIS WEB API",
+        "description": "# WEAF EFRIS API\n\nThe WEAF EFRIS API is developed and owned by Weaf Company Uganda Limited. It provides a simplified and ready-to-use solution for businesses and developers who need to integrate their systems with Uganda Revenue Authority's Electronic Fiscal Receipting and Invoicing System (EFRIS).\n\nWith this API, you don't need to handle complex implementations\u2014just follow a few simple steps to get started:\n\n\ud83d\udcd6 **API Readable Documentation:** [https://weafefrisapi.space](https://weafefrisapi.space)\n\n## \ud83d\ude80 Getting Started\n\n### 1. Signup\nCreate an account at [weafcompany.com/login](https://weafcompany.com/login).\n\n### 2. Create a Company\nAfter signing up, register your company profile inside the platform.\n\n### 3. Generate Access Tokens\nObtain access tokens that will allow you to connect and test the API.\n\n### 4. Testing Environment\nYou can immediately start testing the API using the provided sandbox environment.\n\n### 5. Production Access\nTo move to production, you are required to:\n- Subscribe to a plan and make payment.\n- Complete the configuration process.\n- After approval, you can begin using the API in production.\n\nThis documentation provides details of all available endpoints, request/response formats, and usage guidelines.\n\n---\n\n## \ud83d\udd10 Authentication Guide\n\n### Step 1: Generate Your Access Token\n1. Use the **Generate API Access Token** endpoint below\n2. Provide your email and password credentials\n3. Set your desired token expiration period (1-365 days)\n4. Give your token a descriptive name\n5. Copy the returned token value\n\n### Step 2: Use Your Token in Swagger UI\n1. Click the **\ud83d\udd11 Authorize** button at the top of this page\n2. In the **bearerAuth** section, enter your token in the **Value** field\n3. **Important**: Enter ONLY the token value (without 'Bearer ' prefix)\n4. Click **Authorize** to save your token\n5. Click **Close** to return to the API documentation\n\n### Step 3: Make API Calls\n- All protected endpoints will now use your token automatically\n- Your token will be included in the Authorization header as: `Bearer {your_token}`\n- You can see the lock icon \ud83d\udd12 next to endpoints that require authentication\n\n### \ud83d\udd04 Token Refresh Process\nWhen your token is about to expire:\n1. Use the **Refresh API Access Token** endpoint\n2. Pass your current token in the request body\n3. **For Swagger UI**: Also pass your current token in the Bearer token field above\n4. Get a new token with extended expiration\n5. Update your authorization with the new token\n\n## \ud83d\ude80 Key Features\n\n### Authentication & Security\n- **Secure Token-Based Authentication**: Generate and manage API access tokens with customizable expiration periods\n- **User Management**: Complete user authentication and authorization system\n- **Company Access Control**: Multi-company support with role-based access permissions\n\n### EFRIS Integration\n- **Taxpayer Search**: Real-time taxpayer information retrieval from URA systems\n- **Receipt Management**: Generate and manage electronic fiscal receipts\n- **Compliance Reporting**: Automated tax compliance and reporting features\n\n### SSL Certificate Management\n- **Certificate Generation**: Automated SSL certificate creation and management\n- **Certificate Validation**: Real-time certificate status monitoring\n- **Download & Installation**: Secure certificate download and installation guides\n\n### Company Management\n- **Multi-Company Support**: Manage multiple business entities from a single account\n- **Business Information**: Complete company profile and registration data management\n- **Document Management**: Secure storage and retrieval of business documents\n\n## \ud83d\udd27 Technical Specifications\n\n- **API Version**: 1.0.0\n- **Protocol**: HTTPS (Production) / HTTP (Development)\n- **Authentication**: Bearer Token\n- **Data Format**: JSON\n- **Rate Limiting**: Applied per user/company\n- **Response Format**: Standardized JSON with status codes\n\n## \ud83d\udee1\ufe0f Security & Compliance\n\n- **Data Encryption**: All data transmission encrypted using TLS 1.3\n- **GDPR Compliant**: Full compliance with data protection regulations\n- **Audit Logging**: Comprehensive API request logging and monitoring\n- **Access Control**: Role-based permissions and company-level data isolation\n\n## \ud83d\udcde Support & Documentation\n\nFor technical support, API documentation, or business inquiries, please contact our team.",
+        "version": "1.0.0",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{api_token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Generate API Access Token",
+                    "description": "Authenticate a user and generate an API access token for programmatic access to the system. This endpoint validates user credentials and creates a secure token that can be used for subsequent API calls. The token provides access to company-specific data and operations based on the user's permissions.",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/auth/generate-token",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "generate-token"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"username\": \"user@example.com\",\n    \"password\": \"SecurePassword123!\",\n    \"expiry_days\": 30,\n    \"token_name\": \"Mobile App Integration\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Token generated successfully - Authentication successful",
+                            "status": "Token generated successfully - Authentication successful",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {\n        \"token\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4\",\n        \"token_name\": \"Mobile App Integration\",\n        \"expires_at\": \"2024-11-30T10:30:00.000000Z\",\n        \"expires_in_days\": 30,\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"user@example.com\",\n            \"companies_count\": 2\n        },\n        \"companies\": [\n            {\n                \"id\": 1,\n                \"business_name\": \"ABC Company Ltd\",\n                \"tin\": \"1000251604\",\n                \"environment\": \"production\"\n            }\n        ],\n        \"usage_info\": {\n            \"total_requests\": 0,\n            \"last_used\": null,\n            \"created_at\": \"2024-10-30T10:30:00.000000Z\"\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Validation Error - Invalid request data",
+                            "status": "Validation Error - Invalid request data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"VALIDATION_ERROR\"\n    },\n    \"data\": {\n        \"errors\": {\n            \"username\": [\n                \"The username field is required.\"\n            ],\n            \"password\": [\n                \"The password must be at least 6 characters.\"\n            ],\n            \"expiry_days\": [\n                \"The expiry days must be between 1 and 365.\"\n            ],\n            \"token_name\": [\n                \"The token name field is required.\"\n            ]\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication Failed - Invalid credentials",
+                            "status": "Authentication Failed - Invalid credentials",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"USER_NOT_FOUND\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "403 - Access Forbidden - User account restrictions",
+                            "status": "Access Forbidden - User account restrictions",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"NO_COMPANIES_FOUND\"\n    },\n    \"data\": {\n        \"message\": \"User has no companies associated with their account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error - System error occurred",
+                            "status": "Internal Server Error - System error occurred",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"INTERNAL_SERVER_ERROR\"\n    },\n    \"data\": {\n        \"message\": \"An unexpected error occurred while generating the token\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Validate access token",
+                    "description": "Validate an existing access token and get user/company information",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/auth/validate-token",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "validate-token"
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"token\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Token is valid",
+                            "status": "Token is valid",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {\n        \"token_valid\": true,\n        \"token_name\": \"My API Token\",\n        \"expires_at\": \"2024-11-30T10:30:00.000000Z\",\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"user@example.com\"\n        },\n        \"companies\": [\n            {\n                \"id\": 1,\n                \"business_name\": \"ABC Company Ltd\",\n                \"tin\": \"1000251604\",\n                \"environment\": \"production\"\n            }\n        ]\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Validation error",
+                            "status": "Validation error",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"VALIDATION_ERROR\"\n    },\n    \"data\": {\n        \"errors\": {}\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Invalid or expired token",
+                            "status": "Invalid or expired token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"04\",\n        \"returnMessage\": \"INVALID_OR_EXPIRED_TOKEN\"\n    },\n    \"data\": null\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"INTERNAL_SERVER_ERROR\"\n    },\n    \"data\": {\n        \"message\": \"An unexpected error occurred while validating the token\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Refresh API Access Token",
+                    "description": "Refresh an existing access token to get a new token with extended expiration period. This endpoint allows you to extend the validity of your current token without re-authenticating with username and password. The new token will have a longer expiration period and the old token will be invalidated.\n\n**Important for Swagger UI users:**\n1. First, add your current token to the Bearer token field using the 'Authorize' button above\n2. Then use this endpoint to refresh your token\n3. The old token will be passed in both the request body AND the Authorization header",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/v1/auth/refresh-token",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "auth",
+                                "refresh-token"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"expiry_days\": 60,\n    \"token_name\": \"Refreshed Mobile App Token\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Token refreshed successfully",
+                            "status": "Token refreshed successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"TOKEN_REFRESHED_SUCCESSFULLY\"\n    },\n    \"data\": {\n        \"new_token\": \"b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4\",\n        \"old_token\": \"a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4\",\n        \"token_name\": \"Refreshed Mobile App Token\",\n        \"expires_at\": \"2024-12-30T10:30:00.000000Z\",\n        \"expires_in_days\": 60,\n        \"user\": {\n            \"id\": 1,\n            \"name\": \"John Doe\",\n            \"email\": \"user@example.com\"\n        },\n        \"companies\": [\n            {\n                \"id\": 1,\n                \"business_name\": \"ABC Company Ltd\",\n                \"tin\": \"1000251604\"\n            }\n        ],\n        \"refresh_info\": {\n            \"refreshed_at\": \"2024-10-30T10:30:00.000000Z\",\n            \"old_token_expired_at\": \"2024-11-30T10:30:00.000000Z\",\n            \"extension_days\": 30\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Validation Error - Invalid request data",
+                            "status": "Validation Error - Invalid request data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"VALIDATION_ERROR\"\n    },\n    \"data\": {\n        \"errors\": {\n            \"expiry_days\": [\n                \"The expiry days must be between 1 and 365.\"\n            ],\n            \"token_name\": [\n                \"The token name field is required.\"\n            ]\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication Failed - Invalid or expired token",
+                            "status": "Authentication Failed - Invalid or expired token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"INVALID_TOKEN\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "403 - Access Forbidden - Token refresh not allowed",
+                            "status": "Access Forbidden - Token refresh not allowed",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"TOKEN_REFRESH_DISABLED\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error - System error occurred",
+                            "status": "Internal Server Error - System error occurred",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"INTERNAL_SERVER_ERROR\"\n    },\n    \"data\": {\n        \"message\": \"An unexpected error occurred while refreshing the token\"\n    }\n}"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "EFRIS",
+            "item": [
+                {
+                    "name": "Fetch Products from EFRIS",
+                    "description": "Retrieve and search your company's products from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch a complete list of your products or search for specific products using various filters. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send search parameters in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Search & Filter Options\n- **Fetch All Products**: Send empty strings for all parameters to retrieve all products\n- **Search by Product Code**: Provide a specific `goodsCode` to find a particular product\n- **Search by Product Name**: Use `goodsName` to search for products by name (supports partial matching)\n- **Pagination**: Use `pageSize` and `pageNo` to control the number of results and page navigation\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/sync-products",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "sync-products"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"goodsCode\": \"\",\n    \"goodsName\": \"\",\n    \"pageSize\": \"\",\n    \"pageNo\": \"\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Products fetched successfully from EFRIS",
+                            "status": "Products fetched successfully from EFRIS",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"0\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"INVALID_TOKEN\"\n    },\n    \"data\": {\n        \"message\": \"Token not found or inactive\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Access denied - Company not configured or inactive",
+                            "status": "Access denied - Company not configured or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error or EFRIS API error",
+                            "status": "Internal server error or EFRIS API error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"EFRIS API configuration not found.\"\n    },\n    \"data\": \"EFRIS API configuration not found.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Goods and Services",
+                    "description": "Retrieve goods and services for a company from EFRIS. Uses the same authentication and TIN path parameter as sync-products. Retries up to 3 times on transient errors.",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/goods-and-services",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "goods-and-services"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - OK",
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "401 - Unauthorized",
+                            "status": "Unauthorized",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "403 - Forbidden",
+                            "status": "Forbidden",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "500 - Server Error",
+                            "status": "Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch Products from EFRIS (POST alias)",
+                    "description": "POST alias of sync-products. Retrieve and search your company's products from the EFRIS system. Uses the same controller as sync-products and expects the same request body.",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/goods-and-services",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "goods-and-services"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"goodsCode\": \"\",\n    \"goodsName\": \"\",\n    \"pageSize\": \"\",\n    \"pageNo\": \"\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Products fetched successfully from EFRIS",
+                            "status": "Products fetched successfully from EFRIS",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "403 - Forbidden - TIN not configured or inactive",
+                            "status": "Forbidden - TIN not configured or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        },
+                        {
+                            "name": "500 - Server Error",
+                            "status": "Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Register Product with EFRIS",
+                    "description": "Register new products or update existing products with the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to submit product information to URA for tax compliance and fiscal receipting purposes. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send product data in the specified JSON format with products array\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Product Registration Details\n- **New Registration**: Set `operationType` to \"101\" or omit it (default)\n- **Update Existing**: Set `operationType` to \"102\"\n- **Required Fields**: goodsName, goodsCode, measureUnit, unitPrice, currency, commodityCategoryId, haveExciseTax, description, stockPrewarning, havePieceUnit\n- **Optional Fields**: pieceMeasureUnit, pieceUnitPrice, packageScaledValue, pieceScaledValue, exciseDutyCode, operationType\n- **Exports (Customs Fields)**: For exports, include `customsMeasureUnit`, `customsScaledValue`, `customsUnitPrice`, `packageScaledValueCustoms`. When updating existing exported items, set `operationType` to \"102\" and provide these fields to keep customs data in sync.\n\n## Sample Categories\n\n### Services Categories\n| Category Code | Category Name |\n|---------------|----------------|\n| 90101501 | Restaurants |\n| 81111810 | Software coding service |\n\n### Inventory Products Categories\n| Category Code | Category Name |\n|---------------|----------------|\n| 50202306 | Soft drinks |\n| 53131619 | Cosmetics |\n| 95141708 | Office kitchen |\n| 11121604 | Soft timber |\n\n## Important Instructions\n- **Commodity Category**: You must pass the `commodityCategoryCode` (not the name) in your request\n- **Empty Fields**: For fields that have empty strings, or values like \"102\" or \"101\", maintain them if you don't have the information unless your business specifically works with them\n- **Required Fields**: Ensure all mandatory fields are properly filled\n\n## Unit of Measure Handling\n\n### Single Unit of Measure (1 unit)\nIf your item supports only 1 unit of measure, leave the following fields as shown:\n```json\n{\n  \"pieceMeasureUnit\": \"\",\n  \"havePieceUnit\": \"102\",\n  \"pieceUnitPrice\": \"\",\n  \"packageScaledValue\": \"\",\n  \"pieceScaledValue\": \"\"\n}\n```\n\n### Dual Unit of Measure (2 units)\nIf your item supports 2 units of measure:\n- Set `havePieceUnit` to `\"101\"`\n- Fill in the respective fields with actual data\n\n**Complete Request Body Example for 2 Units:**\n```json\n{\n  \"goodsName\": \"Sample Deemed Item\",\n  \"goodsCode\": \"Sample Deemed Item\",\n  \"measureUnit\": \"DZN\",\n  \"unitPrice\": \"10000\",\n  \"currency\": \"101\",\n  \"commodityCategoryId\": \"10111301\",\n  \"haveExciseTax\": \"102\",\n  \"description\": \"1\",\n  \"stockPrewarning\": \"1\",\n  \"pieceMeasureUnit\": \"PCE\",\n  \"havePieceUnit\": \"101\",\n  \"pieceUnitPrice\": \"1000\",\n  \"packageScaledValue\": \"1\",\n  \"pieceScaledValue\": \"12\",\n  \"exciseDutyCode\": \"\",\n  \"operationType\": \"101\"\n}\n```\n\n**Field Explanations for 2 Units:**\n- `measureUnit`: \"DZN\" (Dozen - main unit)\n- `unitPrice`: \"10000\" (Price per dozen)\n- `pieceMeasureUnit`: \"PCE\" (Piece - secondary unit)\n- `havePieceUnit`: \"101\" (Yes, supports 2 units)\n- `pieceUnitPrice`: \"1000\" (Price per piece)\n- `packageScaledValue`: \"1\" (1 dozen)\n- `pieceScaledValue`: \"12\" (Equals 12 pieces)\n- `currency`: \"101\" (Uganda Shillings)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/register-product",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "register-product"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"products\": [\n        {\n            \"goodsName\": \"Sample Deemed Item\",\n            \"goodsCode\": \"Sample Deemed Item\",\n            \"measureUnit\": \"PCE\",\n            \"unitPrice\": \"33000\",\n            \"currency\": \"101\",\n            \"commodityCategoryId\": \"10111301\",\n            \"haveExciseTax\": \"102\",\n            \"description\": \"1\",\n            \"stockPrewarning\": \"10\",\n            \"pieceMeasureUnit\": \"\",\n            \"havePieceUnit\": \"102\",\n            \"pieceUnitPrice\": \"\",\n            \"packageScaledValue\": \"\",\n            \"customsMeasureUnit\": \"KGM\",\n            \"customsScaledValue\": \"12\",\n            \"customsUnitPrice\": \"2000000\",\n            \"packageScaledValueCustoms\": \"1\",\n            \"pieceScaledValue\": \"\",\n            \"exciseDutyCode\": \"\",\n            \"operationType\": \"102\"\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Product registered successfully",
+                            "status": "Product registered successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"0\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad Request - Invalid request body",
+                            "status": "Bad Request - Invalid request body",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"400\",\n        \"returnMessage\": \"Products array is required in request body.\"\n    },\n    \"data\": \"Products array is required in request body.\"\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Increase Stock with EFRIS",
+                    "description": "Increase stock levels for products in the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to record stock increases through various methods such as local purchases, imports, manufacturing, or opening stock. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send stock increase data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Stock In Types\n- **101**: Import\n- **102**: Local Purchase\n- **103**: Manufacture/Assembling\n- **104**: Opening Stock (called once after registering new item)\n\n## Important Rules\n- If `stockInType` is **103** (Manufacture/Assembling):\n  - `supplierName` must be empty\n  - `supplierTin` must be empty\n- If `stockInType` is **NOT 103** (Import, Local Purchase, or Opening Stock):\n  - `productionBatchNo` must be empty\n  - `productionDate` must be empty\n- For all other stock types, supplier information is required\n\n## Request Body Structure\n- **remarks**: Additional notes about the stock increase\n- **stockInDate**: Date of stock increase (YYYY-MM-DD format)\n- **stockInType**: Type of stock increase (101, 102, 103, or 104)\n- **stockInItem**: Array of items with their quantities (supports decimals) and prices\n- **supplierName**: Name of the supplier (empty for type 103)\n- **supplierTin**: TIN of the supplier (empty for type 103)\n- **productionBatchNo**: Batch number for manufactured items (required for type 103, must be empty for all other types)\n- **productionDate**: Production date for manufactured items (required for type 103, must be empty for all other types)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/increase-stock",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "increase-stock"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"remarks\": \"\",\n    \"stockInDate\": \"2025-09-05\",\n    \"stockInType\": \"102\",\n    \"stockInItem\": [\n        {\n            \"itemCode\": \"Sample Deemed Item\",\n            \"quantity\": 5000.5,\n            \"unitPrice\": 2000,\n            \"measureUnit\": \"PCE\"\n        }\n    ],\n    \"supplierName\": \"Kikubo\",\n    \"supplierTin\": \"1017196458\",\n    \"productionBatchNo\": \"\",\n    \"productionDate\": \"\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Stock increased successfully",
+                            "status": "Stock increased successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Stock increased successfully\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid input data",
+                            "status": "Bad request - Invalid input data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Decrease Stock with EFRIS",
+                    "description": "Decrease stock levels for products in the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to record stock decreases through various adjustment types such as expired goods, damaged goods, personal use, raw materials, or other reasons. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send stock decrease data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Adjust Types\n- **101**: Expired Goods\n- **102**: Damaged Goods\n- **103**: Personal Uses\n- **104**: Others (Please specify)\n- **105**: Raw Material(s)\n\n## Important Rules\n- If `adjustType` is **104** (Others):\n  - `remarks` field cannot be empty - you must specify the reason\n- `adjustType` cannot be empty and must be one of the valid values\n- All other adjust types can have optional remarks\n\n## Request Body Structure\n- **remarks**: Additional notes about the stock decrease (required for adjustType 104)\n- **stockInItem**: Array of items with their quantities (supports decimals) and prices\n- **adjustType**: Type of stock adjustment (101, 102, 103, 104, or 105)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/decrease-stock",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "decrease-stock"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"remarks\": \"these things are expired man\",\n    \"stockInItem\": [\n        {\n            \"quantity\": 2000.5,\n            \"itemCode\": \"Sample Deemed Item\",\n            \"unitPrice\": 30000,\n            \"itemName\": null,\n            \"measureUnit\": \"PCE\"\n        }\n    ],\n    \"adjustType\": \"105\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Stock decreased successfully",
+                            "status": "Stock decreased successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Stock decreased successfully\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid input data",
+                            "status": "Bad request - Invalid input data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Transfer Stock between Branches with EFRIS",
+                    "description": "Transfer stock between branches in the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to move stock from one branch to another with proper tracking and validation. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send stock transfer data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Transfer Type Codes\n- **101**: Out of Stock Adjust\n- **102**: Error Adjust\n- **103**: Others (Please Specify)\n\n## Important Rules\n- **sourceBranchId** and **destinationBranchId** cannot be the same\n- **transferTypeCode** supports multiple selections separated by commas (e.g., '101,102')\n- If **transferTypeCode** contains **103** (Others):\n  - **remarks** field cannot be empty - you must specify the reason\n- All other transfer types can have optional remarks\n\n## Request Body Structure\n- **goodsStockTransfer**: Transfer details including source/destination branches and transfer type\n- **goodsStockTransferItem**: Array of items to transfer with quantities and remarks",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/transfer-stock",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "transfer-stock"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"goodsStockTransfer\": {\n        \"sourceBranchId\": \"243532684710600061\",\n        \"destinationBranchId\": \"231491647800100113\",\n        \"transferTypeCode\": \"101\",\n        \"remarks\": \"Others\"\n    },\n    \"goodsStockTransferItem\": [\n        {\n            \"itemCode\": \"2GB Mifi\",\n            \"quantity\": \"10\",\n            \"remarks\": \"Others\"\n        }\n    ]\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Stock transferred successfully",
+                            "status": "Stock transferred successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Stock transferred successfully\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid input data",
+                            "status": "Bad request - Invalid input data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Registration Details from EFRIS",
+                    "description": "Retrieve company registration details from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch comprehensive registration information for a specific company including business details, tax information, and compliance status. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send GET request with TIN parameter in the URL path\n4. **Response Handling**: Check the response status and message for success/error details\n\n## What You'll Get\n- Company registration information\n- Tax identification details\n- Business registration status\n- Compliance information\n- EFRIS integration status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/registration-details",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "registration-details"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Registration details retrieved successfully",
+                            "status": "Registration details retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Registration details retrieved successfully\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"businessName\": \"WEAF Company Uganda Ltd\",\n        \"registrationStatus\": \"Active\",\n        \"registrationDate\": \"2020-01-15\",\n        \"businessType\": \"Limited Company\",\n        \"address\": \"Kampala, Uganda\",\n        \"phone\": \"+256700000000\",\n        \"email\": \"info@weafcompany.com\",\n        \"efrisStatus\": \"Active\"\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid TIN or request data",
+                            "status": "Bad request - Invalid TIN or request data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"COMPANY_NOT_FOUND_OR_INACTIVE\"\n    },\n    \"data\": {\n        \"message\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\",\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get All Branches from EFRIS",
+                    "description": "Retrieve all branches for a company from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch a complete list of all branches associated with the company TIN. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send GET request with TIN parameter in the URL path\n4. **Response Handling**: Check the response status and message for success/error details\n\n## What You'll Get\n- List of all branches associated with the company\n- Branch IDs and names\n- Branch location information\n- Branch status and configuration details\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/branches",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "branches"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Branches retrieved successfully",
+                            "status": "Branches retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Branches retrieved successfully\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid TIN or request data",
+                            "status": "Bad request - Invalid TIN or request data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"COMPANY_NOT_FOUND_OR_INACTIVE\"\n    },\n    \"data\": {\n        \"message\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\",\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Excise Duty Information from EFRIS",
+                    "description": "Retrieve excise duty information from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch comprehensive excise duty details for a specific company including duty rates, classifications, and compliance information. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send GET request with TIN parameter in the URL path\n4. **Response Handling**: Check the response status and message for success/error details\n\n## What You'll Get\n- Excise duty rates and classifications\n- Duty calculation information\n- Compliance status\n- Tax obligations\n- EFRIS integration status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/excise-duty",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "excise-duty"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Excise duty information retrieved successfully",
+                            "status": "Excise duty information retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"Excise duty information retrieved successfully\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"exciseDutyRates\": [\n            {\n                \"classification\": \"2203.00.00\",\n                \"description\": \"Beer made from malt\",\n                \"dutyRate\": 60,\n                \"unit\": \"Litre\"\n            }\n        ],\n        \"complianceStatus\": \"Compliant\",\n        \"lastUpdated\": \"2024-01-15T10:30:00Z\"\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Bad request - Invalid TIN or request data",
+                            "status": "Bad request - Invalid TIN or request data",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"Invalid request data\"\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Authentication failed - Invalid or missing token",
+                            "status": "Authentication failed - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"Authentication failed\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"COMPANY_NOT_FOUND_OR_INACTIVE\"\n    },\n    \"data\": {\n        \"message\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\",\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal server error",
+                            "status": "Internal server error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"99\",\n        \"returnMessage\": \"Internal server error\"\n    }\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Generate Fiscal Invoice with EFRIS",
+                    "description": "Generate fiscal invoices with the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to create compliant fiscal invoices for tax reporting and compliance purposes. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n- All items must be registered in the EFRIS system (use sync-products endpoint first)\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send invoice data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Required Field Validations\n\n### Seller Details (Required)\n- **placeOfBusiness**: Place of business address (required)\n- **referenceNo**: Reference number (required)\n- **issuedDate**: Invoice issue date and time (required)\n- **branchId**: \u26a0\ufe0f **IMPORTANT**: Only include if you have valid EFRIS branch IDs that belong to the current taxpayer. If you don't have valid branch IDs or are unsure, omit this field completely to avoid validation errors.\n\n### Buyer Details (Required)\n- **buyerBusinessName**: Buyer business name (always required)\n- **buyerTin**: Required when buyerType is '0' or '3', optional when buyerType is '1' or '2'\n\n### Items (Required)\n- **itemCode**: Item code (required) - must exist in EFRIS items database\n- **unitPrice**: Unit price (required) - must be greater than 0\n- **quantity**: Quantity (required) - must be greater than 0\n- **total**: Total amount (required) - must equal unitPrice \u00d7 quantity\n\n## Business Logic & Validations\n\n### Flag Validations\n- **deemedFlag**: Must be either 1 or 2 (default: 2)\n- **discountFlag**: Must be either 1 or 2 (default: 2)\n- **exciseFlag**: Must be either 1 or 2 (default: 2)\n\n### Discount Logic\n- **discountFlag = 0 or 2**: discountTotal = \"\" (empty string)\n- **discountFlag = 1**: discountTotal must be greater than 0\n- **Percentage Support**: If discountTotal contains '%', it will be calculated as a percentage of the total amount\n\n### Tax Rule Logic\n- **Default Tax Rules** (from EFRIS items database):\n  - If `isExempt = 101`: taxRule = 'EXEMPT'\n  - If `isZeroRate = 101`: taxRule = 'ZERORATED'\n  - Otherwise: taxRule = 'STANDARD'\n- **Deemed Logic**: If `deemedFlag = 1`, taxRule becomes 'DEEMED'\n- **Consistency Check**: If taxRule is 'DEEMED', deemedFlag must be 1\n\n### Deemed Project Auto-Obtainment\n- **Automatic**: If `deemedFlag = 1` but `vatProjectName` or `vatProjectId` is missing, the system will automatically:\n  1. Extract `buyerTin` from invoice data\n  2. Query `efris_items` table for `commodityCategoryCode`\n  3. Call the deemed project API to get project details\n  4. Auto-populate `vatProjectName` and `vatProjectId`\n- **Error Handling**: If no deemed projects are found, returns error asking user to ensure buyer TIN is configured with deemed projects\n\n### Excise Duty Validation\n- **When exciseFlag = 1**:\n  - `exciseDutyCode` is required\n  - Code must exist in `excise_duties` table\n  - If code is a `parent_code`, system will automatically use the parent's `excise_duty_code`\n\n### Unit of Measure Logic\n- **Default**: Uses `unitOfMeasure` from request or `measureUnit` from EFRIS items\n- **Override**: If `havePieceUnit = 102` in EFRIS items, uses `measureUnit` from EFRIS items\n\n### Data Type Conversions\n- **Automatic Type Conversion**: All values are automatically converted to appropriate types (int, float, string)\n- **Null Handling**: Null values are converted to appropriate defaults (empty strings, 0, etc.)\n- **Default Values**:\n  - `invoiceType`: 1 (if not provided)\n  - `invoiceKind`: 1 (if not provided)\n  - `paymentMode`: 101 (if not provided)\n  - `currency`: 'UGX' (if not provided)\n  - `deemedFlag`: 2 (if not provided)\n  - `discountFlag`: 2 (if not provided)\n  - `exciseFlag`: 2 (if not provided)\n\n## Error Response Format\nAll validation errors return a standardized JSON format:\n```json\n{\n  \"data\": \"Error message describing the specific validation failure\",\n  \"status\": {\n    \"returnCode\": \"400\",\n    \"returnMessage\": \"Error message describing the specific validation failure\"\n  }\n}\n```\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'\n- **Branch ID Error**: If you get \"branchId does not belong to current taxpayer\" error, remove the `branchId` field from your request\n- **Item Registration**: Ensure all items are registered in EFRIS using the sync-products endpoint before generating invoices\n- **Multi-tenancy**: All item lookups are filtered by company TIN to ensure data isolation",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/generate-fiscal-invoice",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "generate-fiscal-invoice"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"data\": {\n        \"sellerDetails\": {\n            \"placeOfBusiness\": \"Wandera. Plot 28\",\n            \"referenceNo\": \"HDK637G\",\n            \"issuedDate\": \"12/09/2024 21:11:08\"\n        },\n        \"basicInformation\": {\n            \"operator\": \"Wandera\",\n            \"currency\": \"UGX\",\n            \"invoiceType\": 1,\n            \"invoiceKind\": 1,\n            \"paymentMode\": \"101\",\n            \"invoiceIndustryCode\": \"101\"\n        },\n        \"buyerDetails\": {\n            \"buyerTin\": \"1017196396\",\n            \"buyerBusinessName\": \"Wandera\",\n            \"buyerAddress\": \"Kampala Road\",\n            \"buyerEmail\": \"Wandera@road.com\",\n            \"buyerLinePhone\": \"0756508361\",\n            \"buyerMobilePhone\": \"0783291062\",\n            \"buyerType\": \"0\",\n            \"buyerNinBrn\": \"\",\n            \"buyerPassportNum\": \"\"\n        },\n        \"itemsBought\": [\n            {\n                \"itemCode\": \"Sample Deemed Item\",\n                \"quantity\": 1,\n                \"unitPrice\": 2000000,\n                \"total\": 2000000,\n                \"taxForm\": \"101\",\n                \"taxRule\": \"STANDARD\",\n                \"netAmount\": 1695000,\n                \"discountFlag\": 1,\n                \"deemedFlag\": 2,\n                \"discountTotal\": \"5000\",\n                \"exciseFlag\": \"2\",\n                \"exciseRate\": \"\",\n                \"exciseUnit\": \"\",\n                \"exciseTax\": \"\",\n                \"exciseCurrency\": \"UGX\"\n            }\n        ]\n    }\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Fiscal invoice generated successfully. Extract the invoiceNumber, antifakeCode, and qrCode from the response for your invoice printout.",
+                            "status": "Fiscal invoice generated successfully. Extract the invoiceNumber, antifakeCode, and qrCode from the response for your invoice printout.",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {\n        \"basicInformation\": {\n            \"antifakeCode\": \"97532788341320080942\",\n            \"invoiceNo\": \"325041520978\",\n            \"issuedDate\": \"01/10/2025 10:21:20\",\n            \"operator\": \"Wandera\"\n        },\n        \"summary\": {\n            \"qrCode\": \"https://efristest.ura.go.ug/site_new/#/invoiceValidation?invoiceNo=325041520978&antiFakeCode=97532788341320080942\",\n            \"grossAmount\": \"1995000\",\n            \"netAmount\": \"1690677.96\",\n            \"taxAmount\": \"304322.04\"\n        },\n        \"sellerDetails\": {\n            \"businessName\": \"KIYAAN INVESTMENTS (U) LTD\",\n            \"tin\": \"1015264035\",\n            \"address\": \"150 SIXTH STREET NEXT TO KCB BANK INDUSTRIAL AREA KAMPALA\"\n        },\n        \"buyerDetails\": {\n            \"buyerBusinessName\": \"WEAF COMPANY UGANDA LIMITED\",\n            \"buyerTin\": \"1017196396\",\n            \"buyerAddress\": \"Kampala Road\"\n        },\n        \"goodsDetails\": [\n            {\n                \"item\": \"Sample Deemed Item\",\n                \"itemCode\": \"Sample Deemed Item\",\n                \"qty\": \"1\",\n                \"unitPrice\": \"2000000\",\n                \"total\": \"2000000\",\n                \"tax\": \"305084.75\"\n            }\n        ]\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Bad Request - Invalid request body",
+                            "status": "Bad Request - Invalid request body",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"400\",\n        \"returnMessage\": \"Data object is required in request body.\"\n    },\n    \"data\": \"Data object is required in request body.\"\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Generate Fiscal Receipt with EFRIS",
+                    "description": "Generate fiscal receipts with the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to create compliant fiscal receipts for tax reporting and compliance purposes. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n- All items must be registered in the EFRIS system (use sync-products endpoint first)\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send receipt data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Required Field Validations\n\n### Seller Details (Required)\n- **referenceNo**: Reference number (required)\n- **issuedDate**: Receipt issue date and time (required)\n\n### Basic Information (Required)\n- **operator**: Operator name (required)\n- **currency**: Currency code (default: UGX)\n- **paymentMode**: Payment mode (default: 101)\n- **invoiceIndustryCode**: Invoice industry code (default: 101)\n- **isPreview**: Preview flag (0 or 1, default: 0)\n- **isRefund**: Refund flag (0 or 1, default: 0)\n\n### Buyer Details (Required)\n- **buyerTin**: Buyer TIN (required)\n- **buyerBusinessName**: Buyer business name (required)\n- **buyerLegalName**: Buyer legal name (required)\n- **buyerType**: Buyer type (required)\n- **buyerAddress**: Buyer address (required)\n- **buyerEmail**: Buyer email (required)\n- **buyerLinePhone**: Buyer line phone (required)\n- **buyerMobilePhone**: Buyer mobile phone (required)\n\n### Items (Required)\n- **itemCode**: Item code or name (required) - must exist in EFRIS items database (searches by goodsCode or goodsName)\n- **quantity**: Quantity (required) - must be greater than 0\n- **unitPrice**: Unit price (required) - must be greater than 0\n- **total**: Total amount (required) - must equal unitPrice \u00d7 quantity\n- **unitOfMeasure**: Unit of measure (optional - will be fetched from EFRIS items if not provided)\n- **discountFlag**: Discount flag (1=has discount, 2=no discount, default: 2)\n- **discountTotal**: Discount amount (required if discountFlag=1, empty string if discountFlag=2)\n\n## Business Logic & Validations\n\n### Discount Logic\n- **discountFlag = 2**: discountTotal = \"\" (empty string)\n- **discountFlag = 1**: discountTotal must be provided and greater than 0\n- **Percentage Support**: If discountTotal contains '%', it will be calculated as a percentage of the total amount\n- Discounts are processed automatically before payment calculation\n\n### Payment Calculation (Auto-Computed)\n- **payWay**: This field is automatically computed by the API and should NOT be passed by the user\n- The API calculates the total payment amount based on:\n  - Sum of all item totals (after discounts are applied)\n  - Payment mode from basicInformation\n- If payWay is provided in the request, it will be automatically removed and recomputed\n\n### Item Lookup Logic\n- **Flexible Matching**: The system searches for items by both `goodsCode` and `goodsName`\n- If an item is found by name, the `itemCode` in the request is automatically replaced with the correct `goodsCode` from the database\n- **Unit of Measure**: If not provided, uses `measureUnit` from EFRIS items database\n- **Item Validation**: All items must exist in the `efris_items` table for the company TIN\n\n### Data Type Conversions\n- **Automatic Type Conversion**: All values are automatically converted to appropriate types (int, float, string)\n- **Null Handling**: Null values are converted to appropriate defaults (empty strings, 0, etc.)\n- **Default Values**:\n  - `currency`: 'UGX' (if not provided)\n  - `paymentMode`: '101' (if not provided)\n  - `invoiceIndustryCode`: '101' (if not provided)\n  - `isPreview`: '0' (if not provided)\n  - `isRefund`: '0' (if not provided)\n  - `buyerType`: '1' (if not provided)\n  - `discountFlag`: '2' (if not provided)\n\n## Error Response Format\nAll validation errors return a standardized JSON format:\n```json\n{\n  \"data\": \"Error message describing the specific validation failure\",\n  \"status\": {\n    \"returnCode\": \"400\",\n    \"returnMessage\": \"Error message describing the specific validation failure\"\n  }\n}\n```\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'\n- **Item Registration**: Ensure all items are registered in EFRIS using the sync-products endpoint before generating receipts\n- **Multi-tenancy**: All item lookups are filtered by company TIN to ensure data isolation\n- **Auto-Computed Fields**: Do not include `payWay` in your request - it will be automatically calculated and added",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/generate-fiscal-receipt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "generate-fiscal-receipt"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"data\": {\n        \"sellerDetails\": {\n            \"referenceNo\": \"DWHDK620\",\n            \"issuedDate\": \"12/09/2024 21:11:08\"\n        },\n        \"basicInformation\": {\n            \"operator\": \"Wandera\",\n            \"currency\": \"UGX\",\n            \"paymentMode\": \"101\",\n            \"invoiceIndustryCode\": \"101\",\n            \"isPreview\": \"0\",\n            \"isRefund\": \"0\"\n        },\n        \"buyerDetails\": {\n            \"buyerTin\": \"1009609781\",\n            \"buyerBusinessName\": \"Wandera\",\n            \"buyerLegalName\": \"Wandera\",\n            \"buyerType\": \"1\",\n            \"buyerAddress\": \"Kampala Road\",\n            \"buyerEmail\": \"Wandera@road.com\",\n            \"buyerLinePhone\": \"0756508361\",\n            \"buyerMobilePhone\": \"0783291062\"\n        },\n        \"itemsBought\": [\n            {\n                \"itemCode\": \"24523\",\n                \"quantity\": 1,\n                \"unitPrice\": 2000000,\n                \"total\": 2000000,\n                \"unitOfMeasure\": \"KGM\",\n                \"discountFlag\": \"1\",\n                \"discountTotal\": \"500000\"\n            }\n        ]\n    }\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Fiscal receipt generated successfully",
+                            "status": "Fiscal receipt generated successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad Request - Invalid request body or validation error",
+                            "status": "Bad Request - Invalid request body or validation error",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"400\",\n        \"returnMessage\": \"Data object is required in request body. Please ensure your request contains a \\\"data\\\" object with the receipt information.\"\n    },\n    \"data\": \"Data object is required in request body. Please ensure your request contains a \\\"data\\\" object with the receipt information.\"\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1017196396] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1017196396\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Apply for Credit Note (Cancel or Refund Invoice) with EFRIS",
+                    "description": "Apply for a credit note to cancel or refund an invoice with the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to cancel invoices or request refunds for various reasons such as product returns, cancellations, invoice errors, or waivers. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n- Valid invoice number that exists in EFRIS\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send credit note application data in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Reason Codes (dictionaryrefundReason)\n- **101**: Return of products due to expiry or damage, etc.\n- **102**: Cancellation of the purchase.\n- **103**: Invoice amount wrongly stated due to miscalculation of price, tax, or discounts, etc.\n- **104**: Partial or complete waive off of the product sale after the invoice is generated and sent to customer.\n- **105**: Others (Please specify)\n\n## Required Fields\n- **generalInfo**: Object containing credit note application details\n  - **oriInvoiceNo**: Invoice number of the invoice being cancelled (required)\n  - **reasonCode**: Reason code for cancellation (101-105) (required)\n  - **reason**: Description of the reason for cancellation (required)\n  - **invoiceApplyCategoryCode**: Must be \"101\" (required)\n  - **remarks**: Additional remarks (optional)\n  - **sellersReferenceNo**: Reference number of the credit note (required)\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'\n- **Invoice Validation**: The invoice number must exist in EFRIS and belong to the company\n- **Reference Number**: The sellersReferenceNo should be unique for each credit note application",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/apply-for-creditnote",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "apply-for-creditnote"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"generalInfo\": {\n        \"oriInvoiceNo\": \"325042480522\",\n        \"reasonCode\": \"102\",\n        \"reason\": \"Cancellation of the purchase.\",\n        \"invoiceApplyCategoryCode\": \"101\",\n        \"remarks\": \"sdgds\",\n        \"sellersReferenceNo\": \"40V2\"\n    }\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Credit note application submitted successfully",
+                            "status": "Credit note application submitted successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {\n        \"referenceNo\": \"26PL023007440\"\n    }\n}"
+                        },
+                        {
+                            "name": "400 - Bad Request - Invalid request body or validation error",
+                            "status": "Bad Request - Invalid request body or validation error",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"400\",\n        \"returnMessage\": \"generalInfo is required in request body.\"\n    },\n    \"data\": \"generalInfo is required in request body.\"\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Query Invoice Receipts from EFRIS",
+                    "description": "Query and retrieve invoice receipts from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to search for invoices based on various criteria such as buyer information, date range, and invoice type. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send query parameters in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Query Parameters\n- **buyerLegalName**: Search by buyer's legal name (optional)\n- **startDate**: Start date for date range query (optional)\n- **endDate**: End date for date range query (optional)\n- **invoiceKind**: Type of invoice to query (required)\n- **pageNo**: Page number for pagination (required)\n- **pageSize**: Number of results per page (required)\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/invoice-receipt-query",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "invoice-receipt-query"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"buyerLegalName\": \"\",\n    \"startDate\": \"\",\n    \"endDate\": \"\",\n    \"invoiceKind\": \"1\",\n    \"pageNo\": \"1\",\n    \"pageSize\": \"10\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Invoice receipt query completed successfully",
+                            "status": "Invoice receipt query completed successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Query Purchase Invoices from EFRIS",
+                    "description": "Query and retrieve purchase invoices from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to search for purchase invoices based on seller information and date range. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send query parameters in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Query Parameters\n- **sellerTinOrNin**: Seller's Tax Identification Number or National ID (optional - pass empty string if not provided)\n- **sellerLegalOrBusinessName**: Seller's legal or business name (optional - pass empty string if not provided)\n- **startDate**: Start date for date range query in yyyy-MM-dd format (optional - pass empty string if not provided)\n- **endDate**: End date for date range query in yyyy-MM-dd format (optional - pass empty string if not provided)\n\n## Date Format\n- **Format**: yyyy-MM-dd (e.g., 2024-01-01)\n- **Validation**: Dates must be in the specified format. Invalid date formats will result in validation errors.\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'\n- **Empty Fields**: All fields are optional. Pass empty strings (\"\") for fields you don't want to filter by",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/query-purchase-invoices",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "query-purchase-invoices"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"sellerTinOrNin\": \"1009837013\",\n    \"sellerLegalOrBusinessName\": \"CLASSY TRENDS BOUTIQUE\",\n    \"startDate\": \"2024-01-01\",\n    \"endDate\": \"2024-12-31\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Purchase invoice query completed successfully",
+                            "status": "Purchase invoice query completed successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "400 - Bad Request - Invalid request body or validation error",
+                            "status": "Bad Request - Invalid request body or validation error",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"01\",\n        \"returnMessage\": \"VALIDATION_ERROR\"\n    },\n    \"data\": {\n        \"errors\": {\n            \"startDate\": [\n                \"The startDate must be in yyyy-MM-dd format.\"\n            ],\n            \"endDate\": [\n                \"The endDate must be in yyyy-MM-dd format.\"\n            ]\n        }\n    }\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Invoice Details from EFRIS",
+                    "description": "Retrieve detailed information for a specific invoice from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch complete invoice details including all items, tax information, and validation data using the invoice number. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n- Valid invoice number\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Invoice Number**: Provide the invoice number in the URL path\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Path Parameters\n- **tin**: Company Tax Identification Number (TIN) - Must be configured in your account\n- **invoiceNo**: Invoice number to retrieve details for\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/invoice-details/{{invoiceNo}}",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "invoice-details",
+                                "{{invoiceNo}}"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Invoice details retrieved successfully",
+                            "status": "Invoice details retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "404 - Not Found - Invoice not found",
+                            "status": "Not Found - Invoice not found",
+                            "code": 404,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"04\",\n        \"returnMessage\": \"Invoice not found\"\n    },\n    \"data\": \"Invoice with number 324036555841 not found\"\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Search Taxpayer Details from EFRIS",
+                    "description": "Search taxpayer details from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to look up taxpayer information using TIN or NIN/BRN. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send search parameters in the specified JSON format\n4. **Response Handling**: Check the response status and message for success/error details\n\n## Search Parameters\n- **tin**: Tax Identification Number to search for (required)\n- **ninBrn**: National ID or Business Registration Number (optional)\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/search-taxpayer",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "search-taxpayer"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"tin\": \"1017196396\",\n    \"ninBrn\": \"\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Taxpayer details retrieved successfully",
+                            "status": "Taxpayer details retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"02\",\n        \"returnMessage\": \"AUTHORIZATION_HEADER_MISSING\"\n    },\n    \"data\": {\n        \"message\": \"Authorization header is required\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company not found or inactive",
+                            "status": "Forbidden - Company not found or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "404 - Not Found - Taxpayer not found",
+                            "status": "Not Found - Taxpayer not found",
+                            "code": 404,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"04\",\n        \"returnMessage\": \"Taxpayer not found\"\n    },\n    \"data\": \"Taxpayer with TIN 1017196396 not found\"\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Query Taxpayer Deemed Project from EFRIS",
+                    "description": "Query deemed projects for a specific taxpayer from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to retrieve information about deemed projects associated with a taxpayer's TIN. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send POST request with TIN in the URL path and request body with optional commodity category codes\n4. **Response**: Returns deemed project information from EFRIS\n\n## Request Parameters\n- **tin**: Tax Identification Number (required in URL path)\n- **commodityCategoryCode**: Comma-separated list of commodity category codes (optional)\n\n## Use Cases\n- **Deemed Project Lookup**: Query deemed projects for specific taxpayers\n- **Commodity Filtering**: Filter results by commodity category codes\n- **Compliance**: Verify deemed project information for tax compliance\n\n## Important Notes\n- This endpoint forwards requests to the inner EFRIS API\n- All requests are logged for audit purposes\n- Response times are tracked for performance monitoring\n- Failed requests are logged with detailed error information\n- **Token Parameter**: When you provide a token in the query parameter, it will be automatically used in the Authorization header as 'Bearer {token}'",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/query-taxpayer-deemed-project",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "query-taxpayer-deemed-project"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"tin\": \"1017196396\",\n    \"commodityCategoryCode\": \"10111301,10101501\"\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Taxpayer deemed project query completed successfully",
+                            "status": "Taxpayer deemed project query completed successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"0\",\n        \"returnMessage\": \"Taxpayer deemed project query completed successfully\"\n    },\n    \"data\": {}\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"401\",\n        \"returnMessage\": \"Unauthorized - Invalid or missing token\"\n    },\n    \"data\": \"Unauthorized - Invalid or missing token\"\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - TIN not configured or inactive",
+                            "status": "Forbidden - TIN not configured or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"03\",\n        \"returnMessage\": \"Company with TIN [1015264035] is not found in your account. Please add this company to your account first.\"\n    },\n    \"data\": {\n        \"tin\": \"1015264035\",\n        \"status\": \"not_configured\",\n        \"action_required\": \"Add this company to your account\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error",
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"An error occurred while processing the request.\"\n    },\n    \"data\": \"An error occurred while processing the request.\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Fetch Measure Units from EFRIS",
+                    "description": "Retrieve available measure units from the EFRIS (Electronic Fiscal Receipting and Invoicing Solution) system. This endpoint allows you to fetch a complete list of measure units that can be used for product registration and fiscal receipting. The endpoint requires proper authentication and the company TIN must be configured in your account.\n\n## Prerequisites\n- Valid API access token\n- Company TIN must be configured in your account\n- Company must be active\n\n## Usage Instructions\n1. **Authentication**: \n   - **Option A**: Login to your account and generate a token on the dashboard\n   - **Option B**: Login via the API under Authentication and obtain the token to be using\n\n   Please note, you must have registered for an account, if not, [click here to register](/register){:target=\"_blank\"}\n\n   Testing API is free but production, you must have an active subscription, or login and subscribe\n2. **Company Setup**: Ensure the TIN is added to your account and activated\n3. **Request Format**: Send GET request with TIN in the URL path and token as query parameter\n4. **Response**: Returns list of available measure units with their codes and descriptions\n\n## Use Cases\n- **Product Registration**: Get available measure units when registering products\n- **Fiscal Receipting**: Use correct measure units for fiscal receipt generation\n- **Compliance**: Ensure proper unit codes for tax compliance\n\n## Common Measure Units\n- **PP** - PP-Piece\n- **PCE** - Piece\n- **DZN** - Dozen\n- **KGM** - KGM Kilogram\n- **Kg** - Kg\n- **-** - Anything not quantified",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/{{tin}}/measure-units",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "{{tin}}",
+                                "measure-units"
+                            ]
+                        },
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{api_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    },
+                    "response": [
+                        {
+                            "name": "200 - Measure units retrieved successfully",
+                            "status": "Measure units retrieved successfully",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"00\",\n        \"returnMessage\": \"SUCCESS\"\n    },\n    \"data\": [\n        {\n            \"unitCode\": \"PP\",\n            \"unitName\": \"PP-Piece\",\n            \"unitDescription\": \"Individual items or pieces\"\n        }\n    ]\n}"
+                        },
+                        {
+                            "name": "401 - Unauthorized - Invalid or missing token",
+                            "status": "Unauthorized - Invalid or missing token",
+                            "code": 401,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"401\",\n        \"returnMessage\": \"Unauthorized - Invalid or missing token\"\n    }\n}"
+                        },
+                        {
+                            "name": "403 - Forbidden - Company TIN not configured or inactive",
+                            "status": "Forbidden - Company TIN not configured or inactive",
+                            "code": 403,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"403\",\n        \"returnMessage\": \"Forbidden - Company TIN not configured or inactive\"\n    }\n}"
+                        },
+                        {
+                            "name": "500 - Internal Server Error - EFRIS system error",
+                            "status": "Internal Server Error - EFRIS system error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n    \"status\": {\n        \"returnCode\": \"500\",\n        \"returnMessage\": \"Internal Server Error - Unable to fetch measure units from EFRIS\"\n    }\n}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "https://weafcompany.com",
+            "type": "string"
+        },
+        {
+            "key": "api_token",
+            "value": "4MzipIh4RL8Gqnl0ueDpO3qisHijb7ZmW6sMgexmXR5fpxQ6y9172vfzH5UrGaBw",
+            "type": "string"
+        },
+        {
+            "key": "tin",
+            "value": "1015264035",
+            "type": "string"
+        }
+    ]
+}

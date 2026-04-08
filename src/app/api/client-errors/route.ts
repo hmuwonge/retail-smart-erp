@@ -6,6 +6,7 @@ import { sql, and, gte, eq } from 'drizzle-orm'
 import crypto from 'crypto'
 import { validateBody } from '@/lib/validation/helpers'
 import { clientErrorsSchema } from '@/lib/validation/schemas/public'
+import { logToFile } from '@/lib/logging/file-logger'
 
 interface ClientError {
   message: string
@@ -96,6 +97,14 @@ export async function POST(request: NextRequest) {
       const stack = error.componentStack
         ? `${error.stack || ''}\n\nComponent Stack:\n${error.componentStack}`
         : error.stack || null
+
+      // Log to file
+      logToFile('ERROR', 'FRONTEND', `Uncaught exception: ${error.message}`, {
+        tenantId,
+        userId,
+        url: error.url,
+        stack
+      });
 
       await db.insert(aiErrorLogs).values({
         tenantId,
