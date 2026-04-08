@@ -89,7 +89,7 @@ export default function SupportPage() {
   })
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [contactEmail, setContactEmail] = useState('hello@retailsmarterp.com')
+  const [contactEmail, setContactEmail] = useState('hello@localhost:3000')
   const [contactPhone, setContactPhone] = useState('+94 77 840 7616')
   const [contactHours, setContactHours] = useState('Available 9am - 6pm IST')
 

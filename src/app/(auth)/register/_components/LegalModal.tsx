@@ -220,7 +220,7 @@ function TermsContent() {
 
       <section>
         <h3 className="text-base font-semibold text-white mt-6 mb-2">18. Contact</h3>
-        <p>For questions about these terms, email <span className="text-emerald-400">support@retailsmarterp.com</span>.</p>
+        <p>For questions about these terms, email <span className="text-emerald-400">support@localhost:3000</span>.</p>
       </section>
     </div>
   )
@@ -365,7 +365,7 @@ function PrivacyContent() {
 
       <section>
         <h3 className="text-base font-semibold text-white mt-6 mb-2">13. Contact</h3>
-        <p>For questions about this policy, email <span className="text-emerald-400">support@retailsmarterp.com</span>.</p>
+        <p>For questions about this policy, email <span className="text-emerald-400">support@localhost:3000</span>.</p>
       </section>
     </div>
   )

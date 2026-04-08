@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.retailsmarterp.com'),
+  metadataBase: new URL('https://www.localhost:3000'),
   title: {
     default: 'RetailSmart ERP - AI-Powered POS & Business Management',
     template: '%s | RetailSmart ERP',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.retailsmarterp.com',
+    url: 'https://www.localhost:3000',
     siteName: 'RetailSmart ERP',
     title: 'RetailSmart ERP - AI-Powered POS & Business Management',
     description: 'AI-powered cloud POS and ERP. Unlimited users, unlimited transactions. All features on every plan. Free to start.',

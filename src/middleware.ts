@@ -3,9 +3,9 @@ import type { NextRequest } from 'next/server'
 import { edgeDb } from '@/lib/edge-db'
 
 // Domain configuration from environment
-const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'retailsmarterp.com'
-const LANDING_DOMAIN = process.env.NEXT_PUBLIC_LANDING_DOMAIN || 'www.retailsmarterp.com'
-const APP_DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'app.retailsmarterp.com'
+const BASE_DOMAIN = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'localhost:3000'
+const LANDING_DOMAIN = process.env.NEXT_PUBLIC_LANDING_DOMAIN || 'www.localhost:3000'
+const APP_DOMAIN = process.env.NEXT_PUBLIC_APP_DOMAIN || 'app.localhost:3000'
 
 // Sensitive parameters that should never appear in URLs
 const SENSITIVE_PARAMS = ['password', 'pwd', 'pass', 'secret', 'token', 'apikey', 'api_key']

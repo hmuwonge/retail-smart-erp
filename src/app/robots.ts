@@ -24,6 +24,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://www.retailsmarterp.com/sitemap.xml',
+    sitemap: 'https://www.localhost:3000/sitemap.xml',
   }
 }

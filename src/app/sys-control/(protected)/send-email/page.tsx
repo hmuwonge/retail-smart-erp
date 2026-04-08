@@ -183,7 +183,7 @@ export default function SendEmailPage() {
         <h1 className="text-2xl font-bold text-gray-900">Send Test Email</h1>
         <p className="text-gray-500 mt-1">
           Test system email delivery via Resend (primary) or Brevo (fallback).
-          Emails are sent from <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">noreply@retailsmarterp.com</code>
+          Emails are sent from <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm">noreply@localhost:3000</code>
         </p>
       </div>
 
@@ -326,7 +326,7 @@ export default function SendEmailPage() {
             {contentMode === 'html' && html ? (
               <div className="border rounded overflow-hidden">
                 <div className="bg-gray-50 px-4 py-2 border-b">
-                  <p className="text-xs text-gray-500">From: Retail Smart POS &lt;noreply@retailsmarterp.com&gt;</p>
+                  <p className="text-xs text-gray-500">From: Retail Smart POS &lt;noreply@localhost:3000&gt;</p>
                   <p className="text-xs text-gray-500">To: {to || '(not set)'}</p>
                   <p className="text-xs font-medium text-gray-700">{subject || '(no subject)'}</p>
                 </div>
@@ -341,7 +341,7 @@ export default function SendEmailPage() {
             ) : contentMode === 'text' && text ? (
               <div className="border rounded overflow-hidden">
                 <div className="bg-gray-50 px-4 py-2 border-b">
-                  <p className="text-xs text-gray-500">From: Retail Smart POS &lt;noreply@retailsmarterp.com&gt;</p>
+                  <p className="text-xs text-gray-500">From: Retail Smart POS &lt;noreply@localhost:3000&gt;</p>
                   <p className="text-xs text-gray-500">To: {to || '(not set)'}</p>
                   <p className="text-xs font-medium text-gray-700">{subject || '(no subject)'}</p>
                 </div>

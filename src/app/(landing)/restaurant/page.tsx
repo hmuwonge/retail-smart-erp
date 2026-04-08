@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Restaurant Management with Kitchen Display | RetailSmart ERP',
     description: 'KDS, table management, reservations, recipes. AI-powered analytics. Unlimited users.',
-    url: 'https://www.retailsmarterp.com/restaurant',
+    url: 'https://www.localhost:3000/restaurant',
     images: [{ url: '/og/restaurant', width: 1200, height: 630, alt: 'RetailSmart ERP Restaurant Management' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/restaurant'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/restaurant',
+    canonical: 'https://www.localhost:3000/restaurant',
   },
 }
 

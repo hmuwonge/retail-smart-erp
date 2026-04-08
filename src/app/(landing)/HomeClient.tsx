@@ -220,7 +220,7 @@ export default function HomeClient() {
             {/* Right column — Dashboard mockup */}
             <FadeIn className="hidden lg:block" delay={0.3}>
               <FloatingMockup>
-                <MockBrowserFrame url="app.retailsmarterp.com/dashboard">
+                <MockBrowserFrame url="app.localhost:3000/dashboard">
                   <MockDashboard />
                 </MockBrowserFrame>
               </FloatingMockup>
