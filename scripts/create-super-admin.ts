@@ -23,11 +23,11 @@ async function createSuperAdmin() {
       VALUES ($1, $2, $3, true)
       ON CONFLICT (email) DO NOTHING
       RETURNING id
-    `, ['ravindu2012@hotmail.com', passwordHash, 'Super Admin']);
+    `, ['hassansaava@gmail.com', passwordHash, 'Super Admin']);
 
     if (result.rowCount && result.rowCount > 0) {
       console.log('Super admin created successfully!');
-      console.log('Email: ravindu2012@hotmail.com');
+      console.log('Email: hassansaava@gmail.com');
       console.log('Password: Gaje@7616');
     } else {
       console.log('Super admin already exists, skipping.');

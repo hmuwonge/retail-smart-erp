@@ -101,7 +101,7 @@ export default function SitesPage() {
       const { transferToken, slug } = await res.json()
 
       // Navigate to company subdomain with transfer token
-      const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'retailsmarterp.com'
+      const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN || 'localhost:3000'
       const isProduction = window.location.hostname.includes(baseDomain)
 
       if (isProduction) {

@@ -4,7 +4,7 @@
 
 A multi-tenant SaaS Point of Sale and ERP system built with **Next.js 16**, **React 19**, and **PostgreSQL**. Supports five business types: Retail, Restaurant, Supermarket, Auto Service, and Dealership.
 
-**Live Demo:** [retailsmarterp.com](https://www.retailsmarterp.com)
+**Live Demo:** [localhost:3000](https://www.localhost:3000)
 ## Screenshots
 
 ### Landing Page
@@ -44,7 +44,7 @@ A multi-tenant SaaS Point of Sale and ERP system built with **Next.js 16**, **Re
 - Loyalty program with points tracking
 
 ### Multi-Tenant Architecture
-- Subdomain-based tenant isolation (`company.retailsmarterp.com`)
+- Subdomain-based tenant isolation (`company.localhost:3000`)
 - Row Level Security (RLS) at the database level
 - Per-tenant settings, currency, and branding
 - Role-based access control with 15+ roles
@@ -221,6 +221,6 @@ This project is licensed under the [GNU General Public License v3.0](LICENSE).
 
 ## Contact
 
-- **Author:** Ravindu Gajanayaka
-- **Website:** [retailsmarterp.com](https://www.retailsmarterp.com)
+- **Author:** Hassan Saava
+- **Website:** [localhost:3000](https://www.localhost:3000)
 - **Issues:** [GitHub Issues](https://github.com/ravindu2012/retail-smart-erp/issues)

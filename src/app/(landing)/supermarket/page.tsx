@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Supermarket POS & Department Management | RetailSmart ERP',
     description: 'High-volume checkout, department management, batch tracking. AI-powered. Unlimited users.',
-    url: 'https://www.retailsmarterp.com/supermarket',
+    url: 'https://www.localhost:3000/supermarket',
     images: [{ url: '/og/supermarket', width: 1200, height: 630, alt: 'RetailSmart ERP Supermarket POS' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/supermarket'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/supermarket',
+    canonical: 'https://www.localhost:3000/supermarket',
   },
 }
 

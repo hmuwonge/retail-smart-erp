@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Vehicle Dealership Management System | RetailSmart ERP',
     description: 'Vehicle inventory, sales pipeline, trade-ins, test drives. AI-powered. Unlimited users.',
-    url: 'https://www.retailsmarterp.com/dealership',
+    url: 'https://www.localhost:3000/dealership',
     images: [{ url: '/og/dealership', width: 1200, height: 630, alt: 'RetailSmart ERP Vehicle Dealership Management' }],
   },
   twitter: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: ['/og/dealership'],
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/dealership',
+    canonical: 'https://www.localhost:3000/dealership',
   },
 }
 

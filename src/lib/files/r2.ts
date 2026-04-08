@@ -169,7 +169,7 @@ export function cdnUrl(key: string): string {
  * Returns null if the URL doesn't match either format.
  */
 export function keyFromUrl(url: string): string | null {
-  // CDN URL: https://cdn.retailsmarterp.com/tenantSlug/ab/hash-123.png
+  // CDN URL: https://cdn.localhost:3000/tenantSlug/ab/hash-123.png
   if (PUBLIC_URL && url.startsWith(PUBLIC_URL + '/')) {
     return url.slice(PUBLIC_URL.length + 1)
   }

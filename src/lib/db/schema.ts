@@ -304,6 +304,10 @@ export const tenants = pgTable('tenants', {
   lockedReason: varchar('locked_reason', { length: 50 }), // 'trial_expired', 'storage_full', 'subscription_expired'
   deletionScheduledAt: timestamp('deletion_scheduled_at'),
   lastWarningSentAt: timestamp('last_warning_sent_at'),
+  // EFRIS Configuration
+  efrisEnabled: boolean('efris_enabled').notNull().default(false),
+  efrisTin: varchar('efris_tin', { length: 20 }),
+  efrisToken: text('efris_token'), // Per-tenant token (optional if global token is used)
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
@@ -1624,10 +1628,13 @@ export const items = pgTable('items', {
   // Tax
   taxInclusive: boolean('tax_inclusive').notNull().default(false), // DEPRECATED: use taxTemplateId instead
   taxTemplateId: uuid('tax_template_id').references(() => taxTemplates.id, { onDelete: 'set null' }),
+  // EFRIS Mapping
+  efrisItemCode: varchar('efris_item_code', { length: 100 }),
+  efrisTaxForm: varchar('efris_tax_form', { length: 20 }), // e.g. '101'
+  efrisTaxRule: varchar('efris_tax_rule', { length: 50 }), // e.g. 'STANDARD'
   // Flags
   isGiftCard: boolean('is_gift_card').notNull().default(false),
   isActive: boolean('is_active').notNull().default(true),
-
   // Timestamps
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -2109,6 +2116,12 @@ export const sales = pgTable('sales', {
   salesOrderId: uuid('sales_order_id'), // References sales_orders.id (no FK to avoid circular dep, added after table defined)
   createdBy: uuid('created_by').references(() => users.id),
   costCenterId: uuid('cost_center_id').references(() => costCenters.id),
+  // EFRIS Data
+  efrisInvoiceNo: varchar('efris_invoice_no', { length: 50 }),
+  efrisAntifakeCode: varchar('efris_antifake_code', { length: 100 }),
+  efrisQrCode: text('efris_qr_code'),
+  efrisStatus: varchar('efris_status', { length: 20 }), // 'pending', 'success', 'failed'
+  efrisError: text('efris_error'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 

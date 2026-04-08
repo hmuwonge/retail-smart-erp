@@ -13,7 +13,7 @@ RetailSmart ERP is a multi-tenant SaaS business management system supporting fiv
 
 Every plan includes every feature — businesses only pay for storage as they grow. The first company per account is free forever with no credit card required.
 
-Website: https://www.retailsmarterp.com
+Website: https://www.localhost:3000
 
 ## Features by Module
 
@@ -141,7 +141,7 @@ All plans include every feature. Pricing is based on storage only.
 
 ## Getting Started
 
-1. **Register**: Create a free account at https://www.retailsmarterp.com/register — no credit card needed
+1. **Register**: Create a free account at https://www.localhost:3000/register — no credit card needed
 2. **Create your company**: Choose your business type (retail, restaurant, supermarket, auto service, or dealership)
 3. **Configure**: Set up categories, add items or services, invite your team
 4. **Start selling**: Open the POS terminal and process your first transaction
@@ -160,23 +160,23 @@ All plans include every feature. Pricing is based on storage only.
 
 | Type | Key Use Case | URL |
 |------|-------------|-----|
-| Retail | Stores, shops, boutiques | https://www.retailsmarterp.com/retail |
-| Restaurant | Cafes, restaurants, food service | https://www.retailsmarterp.com/restaurant |
-| Supermarket | Grocery, departments, high-volume | https://www.retailsmarterp.com/supermarket |
-| Auto Service | Workshops, garages, service centers | https://www.retailsmarterp.com/auto-service |
-| Dealership | Vehicle sales, showrooms | https://www.retailsmarterp.com/dealership |
+| Retail | Stores, shops, boutiques | https://www.localhost:3000/retail |
+| Restaurant | Cafes, restaurants, food service | https://www.localhost:3000/restaurant |
+| Supermarket | Grocery, departments, high-volume | https://www.localhost:3000/supermarket |
+| Auto Service | Workshops, garages, service centers | https://www.localhost:3000/auto-service |
+| Dealership | Vehicle sales, showrooms | https://www.localhost:3000/dealership |
 
 ## Contact
 
-- Website: https://www.retailsmarterp.com
-- Support: support@retailsmarterp.com
-- About: https://www.retailsmarterp.com/about
-- Contact form: https://www.retailsmarterp.com/contact
+- Website: https://www.localhost:3000
+- Support: support@localhost:3000
+- About: https://www.localhost:3000/about
+- Contact form: https://www.localhost:3000/contact
 
 ## Legal
 
-- Privacy Policy: https://www.retailsmarterp.com/privacy
-- Terms of Service: https://www.retailsmarterp.com/terms
+- Privacy Policy: https://www.localhost:3000/privacy
+- Terms of Service: https://www.localhost:3000/terms
 `
 
   return new NextResponse(content, {

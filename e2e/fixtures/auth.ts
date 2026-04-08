@@ -8,7 +8,7 @@ export const TEST_TENANT = {
 }
 
 export const TEST_USER = {
-  email: 'ravindu2012@hotmail.com',
+  email: 'hassansaava@gmail.com',
   password: 'Gaje@7616',
 }
 

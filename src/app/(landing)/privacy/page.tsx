@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Privacy Policy - RetailSmart ERP',
     description: 'Privacy Policy for RetailSmart ERP. Learn how we collect, use, and protect your data.',
-    url: 'https://www.retailsmarterp.com/privacy',
+    url: 'https://www.localhost:3000/privacy',
     type: 'website',
   },
   twitter: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'Privacy Policy for RetailSmart ERP. Learn how we collect, use, and protect your data.',
   },
   alternates: {
-    canonical: 'https://www.retailsmarterp.com/privacy',
+    canonical: 'https://www.localhost:3000/privacy',
   },
 }
 
@@ -254,7 +254,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-xl font-semibold text-white mt-8 mb-3">13. Contact</h2>
-            <p>If you have questions about this Privacy Policy or wish to exercise your data rights, please reach out through our <a href="/contact" className="text-emerald-400 hover:text-emerald-300 hover:underline">contact page</a> or email <a href="mailto:support@retailsmarterp.com" className="text-emerald-400 hover:text-emerald-300 hover:underline">support@retailsmarterp.com</a>.</p>
+            <p>If you have questions about this Privacy Policy or wish to exercise your data rights, please reach out through our <a href="/contact" className="text-emerald-400 hover:text-emerald-300 hover:underline">contact page</a> or email <a href="mailto:support@localhost:3000" className="text-emerald-400 hover:text-emerald-300 hover:underline">support@localhost:3000</a>.</p>
           </section>
         </div>
       </div>

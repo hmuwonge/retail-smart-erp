@@ -11,26 +11,26 @@ RetailSmart ERP is a multi-tenant SaaS business management system built for five
 
 ## Key Pages
 
-- [Home](https://www.retailsmarterp.com/): Product overview and value proposition
-- [Features](https://www.retailsmarterp.com/features): Complete feature list across all modules
-- [Pricing](https://www.retailsmarterp.com/pricing): Transparent storage-based pricing, all features included
-- [Retail POS](https://www.retailsmarterp.com/retail): Barcode scanning, inventory, loyalty programs, gift cards
-- [Restaurant](https://www.retailsmarterp.com/restaurant): Kitchen display, table management, floor plan, reservations, recipes
-- [Supermarket](https://www.retailsmarterp.com/supermarket): High-volume checkout, department management, batch tracking
-- [Auto Service](https://www.retailsmarterp.com/auto-service): Work orders, vehicle tracking, inspections, insurance estimates
-- [Vehicle Dealership](https://www.retailsmarterp.com/dealership): Vehicle inventory, sales pipeline, trade-ins, test drives
+- [Home](https://www.localhost:3000/): Product overview and value proposition
+- [Features](https://www.localhost:3000/features): Complete feature list across all modules
+- [Pricing](https://www.localhost:3000/pricing): Transparent storage-based pricing, all features included
+- [Retail POS](https://www.localhost:3000/retail): Barcode scanning, inventory, loyalty programs, gift cards
+- [Restaurant](https://www.localhost:3000/restaurant): Kitchen display, table management, floor plan, reservations, recipes
+- [Supermarket](https://www.localhost:3000/supermarket): High-volume checkout, department management, batch tracking
+- [Auto Service](https://www.localhost:3000/auto-service): Work orders, vehicle tracking, inspections, insurance estimates
+- [Vehicle Dealership](https://www.localhost:3000/dealership): Vehicle inventory, sales pipeline, trade-ins, test drives
 
 ## Company
 
-- [About](https://www.retailsmarterp.com/about): Our mission and technology
-- [Contact](https://www.retailsmarterp.com/contact): Support and inquiries
-- [Privacy Policy](https://www.retailsmarterp.com/privacy): Data handling and security practices
-- [Terms of Service](https://www.retailsmarterp.com/terms): Usage terms and conditions
+- [About](https://www.localhost:3000/about): Our mission and technology
+- [Contact](https://www.localhost:3000/contact): Support and inquiries
+- [Privacy Policy](https://www.localhost:3000/privacy): Data handling and security practices
+- [Terms of Service](https://www.localhost:3000/terms): Usage terms and conditions
 
 ## Getting Started
 
-- [Register](https://www.retailsmarterp.com/register): Create a free account — no credit card required
-- [Login](https://www.retailsmarterp.com/login): Sign in to your account
+- [Register](https://www.localhost:3000/register): Create a free account — no credit card required
+- [Login](https://www.localhost:3000/login): Sign in to your account
 - [Full Product Details](/llms-full.txt): Extended product information for AI systems
 `
 

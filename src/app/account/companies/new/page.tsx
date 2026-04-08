@@ -723,7 +723,7 @@ function NewCompanyForm() {
                       </div>
                       <div id="slug-preview" className="mt-1 flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
                         <Globe className="w-3 h-3" />
-                        <span className="font-mono">{formData.slug}.retailsmarterp.com</span>
+                        <span className="font-mono">{formData.slug}.localhost:3000</span>
                       </div>
                     </>
                   )}
