@@ -17,6 +17,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:seed-admin": "npx tsx scripts/create-super-admin.ts",
+    "db:pricing-tiers": "npx tsx scripts/seed-pricing-tiers.ts",
     "db:indexes": "npx tsx stress-tests/scripts/apply-indexes.ts",
     "stress:all": "node stress-tests/scripts/run-all-tests.js",
     "stress:quick": "node stress-tests/scripts/run-all-tests.js --quick",
