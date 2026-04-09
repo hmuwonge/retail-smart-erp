@@ -2,7 +2,7 @@ import crypto from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { authWithCompany, resolveUserIdRequired } from '@/lib/auth'
 import { db as rawDb, withTenant } from '@/lib/db'
-import { sales, saleItems, items, stockMovements, payments, customers, customerCreditTransactions, workOrders, workOrderParts, insuranceEstimates, insuranceEstimateItems, vehicles, warehouseStock, warehouses, loyaltyPrograms, loyaltyTiers, loyaltyTransactions, refunds, heldSales, salesOrders, posProfiles, posOpeningEntries, giftCards, giftCardTransactions } from '@/lib/db/schema'
+import { sales, saleItems, items, stockMovements, payments, customers, customerCreditTransactions, workOrders, workOrderParts, insuranceEstimates, insuranceEstimateItems, vehicles, warehouseStock, warehouses, loyaltyPrograms, loyaltyTiers, loyaltyTransactions, refunds, heldSales, salesOrders, posProfiles, posOpeningEntries, giftCards, giftCardTransactions, tenants } from '@/lib/db/schema'
 import { eq, and, desc, sql, or, ilike, inArray } from 'drizzle-orm'
 import { escapeLikePattern } from '@/lib/utils/sql'
 import { generateActivityDescription } from '@/lib/utils/activity-log'
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     const { search, status, customerId, page, pageSize, all } = parsed.data
 
     // Execute with RLS tenant context
-    return await withTenant(session.user.tenantId, async (db) => {
+    const saleResult = await withTenant(session.user.tenantId, async (db) => {
       // Build where conditions (tenantId filter handled by RLS)
       const conditions = []
 
@@ -251,7 +251,7 @@ export async function POST(request: NextRequest) {
     if (acctError) return acctError
 
     // Execute with RLS tenant context
-    return await withTenant(session.user.tenantId, async (db) => {
+    const saleResult = await withTenant(session.user.tenantId, async (db) => {
       // Get warehouse ID - use provided or default warehouse (RLS scopes the query)
       let warehouseId = providedWarehouseId
 
@@ -1393,6 +1393,24 @@ export async function POST(request: NextRequest) {
           })
         }
       }
+
+      // Fire-and-forget: Submit sale to EFRIS if tenant has EFRIS enabled
+      // This runs after the transaction commits, so sale data is persisted
+      const saleForEfris = result
+      ;(async () => {
+        try {
+          const tenant = await (await import('@/lib/db')).db.query.tenants.findFirst({
+            where: eq(tenants.id, session.user.tenantId),
+          })
+          if (tenant?.efrisEnabled && tenant?.efrisTin && tenant?.efrisToken) {
+            const { submitSaleToEfris } = await import('@/lib/integration/efris-submitter')
+            await submitSaleToEfris(saleForEfris.id, session.user.tenantId)
+          }
+        } catch (efrisError) {
+          // Log but don't fail the request — EFRIS submission will retry via background job
+          console.error('[EFRIS] Auto-submit on sale creation failed:', efrisError)
+        }
+      })()
 
       return NextResponse.json(result)
     })

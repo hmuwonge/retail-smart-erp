@@ -289,6 +289,7 @@ export const setupCompleteSchema = z.object({
   posWarehouseName: z.string().max(255).optional(),
   posCostCenter: z.string().max(255).optional(),
   users: z.array(setupUserSchema).optional(),
+  efrisTin: z.string().max(20).optional(),
 })
 
 // ==================== WORKSPACE ====================

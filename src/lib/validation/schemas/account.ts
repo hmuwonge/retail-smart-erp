@@ -46,6 +46,7 @@ export const createCompanySchema = z.object({
   tierId: uuidSchema.optional(),
   billingCycle: z.enum(['monthly', 'yearly']).optional(),
   aiEnabled: z.boolean().optional(),
+  efrisTin: z.string().max(20).optional(),
 })
 
 // DELETE /api/account/companies

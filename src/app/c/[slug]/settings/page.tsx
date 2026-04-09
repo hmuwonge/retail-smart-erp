@@ -21,6 +21,7 @@ import { SectionCard, Field, FieldGrid } from '@/components/ui/section-card'
 import { LogoUpload } from '@/components/ui/logo-upload'
 import { Button } from '@/components/ui/button'
 import { FormInput, FormField, FormSelect, FormCheckbox } from '@/components/ui/form-elements'
+import { EfrisStatus } from '@/components/settings/EfrisStatus'
 
 const documentTypes: { key: DocumentType; label: string; description: string }[] = [
   { key: 'receipt', label: 'Receipt', description: 'POS sales receipts' },
@@ -356,6 +357,9 @@ export default function SettingsPage() {
               </Button>
             </div>
           </SectionCard>
+
+          {/* EFRIS Status */}
+          <EfrisStatus />
         </div>
       </div>
 

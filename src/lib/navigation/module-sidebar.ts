@@ -190,6 +190,7 @@ const ROUTE_MODULE_MAP: [string, string][] = [
 
   // Reports
   ['/reports', 'reports'],
+  ['/reports/efris', 'reports'],
   ['/activity-log', 'reports'],
 
   // Files
@@ -609,6 +610,12 @@ const MODULE_SIDEBARS: Record<string, SidebarSection[]> = {
       title: 'Saved',
       items: [
         { href: '/accounting/reports/saved', label: 'Saved Reports', icon: 'Bookmark', permission: 'viewReports' },
+      ],
+    },
+    {
+      title: 'Compliance',
+      items: [
+        { href: '/reports/efris', label: 'EFRIS Submissions', icon: 'ShieldCheck', permission: 'viewReports' },
       ],
     },
     {

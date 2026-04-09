@@ -87,6 +87,7 @@ export async function POST(
         fiscalYearStart: body.fiscalYearStart,
         fiscalYearEnd: body.fiscalYearEnd,
         fiscalYearName: body.fiscalYearName,
+        efrisTin: body.efrisTin || undefined,
         selectedCategories: (body.selectedCategories || []) as string[],
         numberOfTables: body.numberOfTables,
         tableAreas: bodyAny.tableAreas,

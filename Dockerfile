@@ -22,7 +22,7 @@ RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -35,7 +35,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/server.js ./
 COPY --from=builder /app/scripts ./
 COPY --from=builder /app/node_modules ./node_modules
-
+COPY .env.example /app/.env
 USER nextjs
 
 EXPOSE 3000 3001

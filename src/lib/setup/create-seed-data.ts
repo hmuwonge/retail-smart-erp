@@ -62,6 +62,7 @@ export interface SetupWizardData {
   fiscalYearStart?: string
   fiscalYearEnd?: string
   fiscalYearName?: string
+  efrisTin?: string  // EFRIS Tax Identification Number (Uganda)
 
   // Step 2: Business-type specific
   selectedCategories: string[]
@@ -158,6 +159,7 @@ export async function createSeedData(
   if (data.taxRate !== undefined) tenantUpdate.taxRate = String(data.taxRate)
   if (data.taxInclusive !== undefined) tenantUpdate.taxInclusive = data.taxInclusive
   if (data.timezone) tenantUpdate.timezone = data.timezone
+  if (data.efrisTin) tenantUpdate.efrisTin = data.efrisTin
 
   await tx.update(tenants).set(tenantUpdate).where(eq(tenants.id, tenantId))
 

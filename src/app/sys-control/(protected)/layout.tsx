@@ -96,6 +96,12 @@ export default async function AdminProtectedLayout({
                 >
                   Send Email
                 </Link>
+                <Link
+                  href="/sys-control/efris"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  EFRIS
+                </Link>
               </nav>
             </div>
             <div className="flex items-center gap-4">

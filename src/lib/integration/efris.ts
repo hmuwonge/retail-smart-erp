@@ -192,7 +192,18 @@ export class EfrisClient {
     /**
      * Register a product with EFRIS
      */
-    async registerProduct(products: any[]) {
+    async registerProduct(products: Array<{
+        goodsCode?: string
+        goodsName: string
+        goodsType: string
+        unit: string
+        unitPrice: number
+        taxForm: string
+        taxRule: string
+        currency?: string
+        hasExemption?: string
+        hasZeroRate?: string
+    }>) {
         return this.request('/api/{{tin}}/register-product', {
             method: 'POST',
             body: JSON.stringify({ products }),

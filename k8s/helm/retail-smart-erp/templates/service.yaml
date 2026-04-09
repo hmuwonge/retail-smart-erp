@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "retail-smart-erp.fullname" . }}
   labels:
-    {{- include "retail-smart-erp.labels" . | nindent 4 }}
+    {{ include "retail-smart-erp.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -16,4 +16,4 @@ spec:
       protocol: TCP
       name: ws
   selector:
-    {{- include "retail-smart-erp.selectorLabels" . | nindent 4 }}
+    {{ include "retail-smart-erp.selectorLabels" . | nindent 4 }}
