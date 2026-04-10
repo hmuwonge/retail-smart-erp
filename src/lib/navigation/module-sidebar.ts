@@ -202,6 +202,8 @@ const ROUTE_MODULE_MAP: [string, string][] = [
   ['/settings/letter-heads', 'settings'],
   ['/settings/print-templates', 'settings'],
   ['/settings/label-templates', 'settings'],
+  ['/settings/migration', 'settings'],
+  ['/settings/import-export', 'settings'],
   ['/settings', 'settings'],
 ]
 
@@ -788,6 +790,13 @@ const MODULE_SIDEBARS: Record<string, SidebarSection[]> = {
       items: [
         { href: '/settings/module-access', label: 'Module Access', icon: 'Shield', permission: 'manageSettings' },
         { href: '/settings/system-audit', label: 'System Audit', icon: 'ShieldCheck', permission: 'manageSettings' },
+      ],
+    },
+    {
+      title: 'Data & Migration',
+      items: [
+        { href: '/settings/migration', label: 'Switch / Migrate', icon: 'ArrowRightLeft', permission: 'manageSettings' },
+        { href: '/settings/import-export', label: 'Import / Export', icon: 'Upload', permission: 'manageSettings' },
       ],
     },
     {
