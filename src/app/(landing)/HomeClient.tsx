@@ -7,6 +7,7 @@ import {
   Sparkles, Shield, Users, Store, BarChart3, ShoppingCart,
   Package, Calculator, Utensils, Monitor, Wrench, Car, Brain,
   ShieldCheck, Check, UserPlus, Settings, Rocket, ArrowRight, Gift,
+  FileCheck, Database,
 } from 'lucide-react'
 import {
   PageWrapper, FadeIn, BlurFadeIn, HeroBadge, TrustBar,
@@ -21,7 +22,7 @@ import AIBadge from '@/components/landing/AIBadge'
 import {
   MockPOS, MockDashboard, MockKitchenDisplay,
   MockWorkOrders, MockInventory, MockAccounting, MockTables,
-  MockBrowserFrame,
+  MockBrowserFrame, MockEFRIS, MockMigration,
 } from '@/components/landing/mockups'
 import { useCurrencyDisplay } from '@/hooks'
 
@@ -31,6 +32,8 @@ const allFeatures = [
   { category: 'Inventory', color: 'bg-amber-500', items: ['Multi-Warehouse', 'Stock Transfers', 'Reorder Alerts', 'Batch Tracking', 'Stock Movements', 'Purchase Orders', 'Suppliers'] },
   { category: 'Accounting', color: 'bg-sky-500', items: ['Chart of Accounts', 'Journal Entries', 'Bank Accounts', 'Budgets', 'Cost Centers', 'Tax Templates', 'Period Closing'] },
   { category: 'HR & Payroll', color: 'bg-violet-500', items: ['Employee Records', 'Salary Structures', 'Payroll Runs', 'Salary Slips', 'Employee Advances', 'Attendance'] },
+  { category: 'URA EFRIS', color: 'bg-emerald-600', items: ['E-Invoice Generation', 'URA Real-Time Reporting', 'Fiscal Device Integration', 'Compliance Tracking', 'Error Retry', 'Multi-Business Support'] },
+  { category: 'Data Migration', color: 'bg-sky-600', items: ['QuickBooks Import', 'Zoho Books Import', 'Xero Import', 'CSV/Excel Import', 'Field Mapping Wizard', 'Data Validation'] },
   { category: 'Restaurant', color: 'bg-orange-500', items: ['Kitchen Display', 'Table Management', 'Floor Plan', 'Reservations', 'Recipe Costing', 'Waste Tracking', 'Deliveries'] },
   { category: 'Auto Service', color: 'bg-rose-500', items: ['Work Orders', 'Vehicle Tracking', 'Inspections', 'Insurance Estimates', 'Parts Management', 'Labor Guides'] },
   { category: 'Platform', color: 'bg-stone-500', items: ['Real-time sync', 'AI Intelligence', 'Multi-Currency', 'Role-Based Access', 'Custom Reports', 'Export Excel/PDF'] },
@@ -133,6 +136,8 @@ export default function HomeClient() {
     { key: 'kitchen', label: 'Restaurant Kitchen', icon: Utensils, gradient: 'from-orange-500 to-red-500', mockup: <MockKitchenDisplay />, description: 'Real-time kitchen display system with order queues, status tracking, and automatic notifications.', features: ['Order queue management', 'Status tracking', 'Priority ordering', 'Cook time tracking', 'Auto-notifications', 'Multi-station support'] },
     { key: 'tables', label: 'Tables', icon: Monitor, gradient: 'from-rose-500 to-pink-500', mockup: <MockTables />, description: 'Visual table management with floor plan designer, real-time status updates, and reservation integration.', features: ['Floor plan designer', 'Real-time table status', 'Table merging & splitting', 'Reservation linking', 'Capacity management', 'Waiter assignment'] },
     { key: 'workorders', label: 'Auto Service', icon: Wrench, gradient: 'from-indigo-500 to-violet-500', mockup: <MockWorkOrders />, description: 'Complete work order management with vehicle tracking, inspections, and insurance estimate integration.', features: ['Work order management', 'Vehicle tracking', 'Multi-point inspections', 'Insurance estimates', 'Parts management', 'Labor guides'] },
+    { key: 'efris', label: 'URA EFRIS', icon: FileCheck, gradient: 'from-emerald-600 to-green-600', mockup: <MockEFRIS />, description: 'Fully certified integration with Uganda Revenue Authority\'s Electronic Fiscal Receipting and Invoicing System. Automatic e-invoicing, real-time sales reporting, and fiscal device integration.', features: ['Automatic e-invoice generation & submission', 'Real-time sales data reporting to URA', 'Fiscal device integration support', 'Compliance tracking & alerts', 'Works for retail, restaurant, and wholesale', 'Error handling & retry mechanisms'] },
+    { key: 'migration', label: 'Data Migration', icon: Database, gradient: 'from-sky-600 to-blue-600', mockup: <MockMigration />, description: 'Seamlessly migrate your data from QuickBooks Online, Zoho Books, Xero, FreshBooks, or CSV/Excel files with our guided migration wizard.', features: ['QuickBooks Online, Zoho, Xero, FreshBooks support', 'Import customers, products, invoices & more', 'Guided wizard with step-by-step help', 'Data validation & error reporting', 'CSV/Excel import fallback option', 'Secure, encrypted data transfer'] },
     { key: 'dashboard', label: 'AI Dashboard', icon: Brain, gradient: 'from-emerald-600 to-amber-500', mockup: <MockDashboard />, description: 'Real-time dashboards with AI chat assistant, sales analytics, and business intelligence.', features: ['Real-time metrics', 'AI chat assistant', 'Sales trend analysis', 'Smart warnings', 'Custom reports', 'Export to Excel/PDF'] },
   ]
 

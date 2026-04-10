@@ -4,7 +4,7 @@ import { type ReactNode } from 'react'
 import {
   BarChart3, Globe, Wifi, Shield, Sparkles, Smartphone,
   ShoppingCart, Package, Calculator, Users, Utensils, Wrench,
-  Check, Monitor,
+  Check, Monitor, FileCheck, Database,
 } from 'lucide-react'
 import {
   PageWrapper, FadeIn, BlurFadeIn, HeroBadge,
@@ -21,6 +21,8 @@ import { MockWorkOrders } from '@/components/landing/mockups/MockWorkOrders'
 import { MockInventory } from '@/components/landing/mockups/MockInventory'
 import { MockAccounting } from '@/components/landing/mockups/MockAccounting'
 import { MockTables } from '@/components/landing/mockups/MockTables'
+import { MockEFRIS } from '@/components/landing/mockups/MockEFRIS'
+import { MockMigration } from '@/components/landing/mockups/MockMigration'
 
 interface TabData {
   key: string
@@ -97,6 +99,24 @@ const featureTabs: TabData[] = [
     features: ['Work orders', 'Vehicle tracking', 'Multi-point inspections', 'Insurance estimates', 'Parts management', 'Labor guides'],
   },
   {
+    key: 'efris',
+    label: 'URA EFRIS',
+    icon: FileCheck,
+    gradient: 'from-emerald-600 to-green-600',
+    mockup: <MockEFRIS />,
+    description: 'Fully certified integration with Uganda Revenue Authority\'s Electronic Fiscal Receipting and Invoicing System. Automatic e-invoicing, real-time sales reporting, and fiscal device integration.',
+    features: ['Automatic e-invoice generation & submission', 'Real-time sales data reporting to URA', 'Fiscal device integration support', 'Compliance tracking & alerts', 'Works for retail, restaurant, and wholesale', 'Error handling & retry mechanisms'],
+  },
+  {
+    key: 'migration',
+    label: 'Data Migration',
+    icon: Database,
+    gradient: 'from-sky-600 to-blue-600',
+    mockup: <MockMigration />,
+    description: 'Seamlessly migrate your data from QuickBooks Online, Zoho Books, Xero, FreshBooks, or CSV/Excel files with our guided migration wizard.',
+    features: ['QuickBooks Online, Zoho, Xero, FreshBooks support', 'Import customers, products, invoices & more', 'Guided wizard with step-by-step help', 'Data validation & error reporting', 'CSV/Excel import fallback option', 'Secure, encrypted data transfer'],
+  },
+  {
     key: 'ai',
     label: 'AI & Analytics',
     icon: Sparkles,
@@ -117,6 +137,8 @@ const comparison = [
   { feature: 'Row-Level Data Isolation', included: true },
   { feature: 'Double-Entry Accounting', included: true },
   { feature: 'HR & Payroll', included: true },
+  { feature: 'URA EFRIS E-Invoicing', included: true },
+  { feature: 'Easy Data Migration (QuickBooks, Zoho, Xero)', included: true },
   { feature: 'No Per-User Fees', included: true },
 ]
 
@@ -184,6 +206,8 @@ export default function FeaturesClient() {
               { icon: Shield, title: 'Advanced Security', description: 'Complete data isolation, encryption, and granular role-based access', gradient: 'from-stone-600 to-stone-700' },
               { icon: Sparkles, title: 'AI Intelligence', description: 'AI chat assistant, smart warnings, trend analysis', gradient: 'from-rose-500 to-pink-500', aiPowered: true },
               { icon: Smartphone, title: 'Mobile Responsive', description: 'Fully responsive design for mobile, tablet, and desktop', gradient: 'from-violet-500 to-purple-500' },
+              { icon: FileCheck, title: 'URA EFRIS Certified', description: 'Automatic e-invoicing and real-time sales reporting to Uganda Revenue Authority', gradient: 'from-emerald-600 to-green-600' },
+              { icon: Database, title: 'Easy Data Migration', description: 'Import from QuickBooks, Zoho Books, Xero, FreshBooks, or CSV/Excel files', gradient: 'from-sky-600 to-blue-600' },
             ].map((card) => (
               <StaggerItem key={card.title}>
                 <FeatureCard {...card} />

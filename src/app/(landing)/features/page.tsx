@@ -3,9 +3,9 @@ import { generateBreadcrumbJsonLd } from '@/lib/seo/breadcrumbs'
 import FeaturesClient from './FeaturesClient'
 
 export const metadata: Metadata = {
-  title: 'All Features - POS, Inventory, Accounting, HR, AI Analytics',
-  description: 'Explore every feature: point of sale, inventory management, accounting, HR & payroll, kitchen display, work orders, and AI analytics. All included on every plan. No feature gating.',
-  keywords: ['POS features', 'inventory management', 'accounting software', 'HR payroll', 'kitchen display system', 'work order management', 'AI analytics', 'restaurant POS features'],
+  title: 'All Features - POS, Inventory, Accounting, HR, URA EFRIS, Migration & AI',
+  description: 'Explore every feature: point of sale, inventory, accounting, HR & payroll, URA EFRIS e-invoicing, data migration from QuickBooks/Zoho/Xero, kitchen display, work orders, and AI analytics. All included on every plan.',
+  keywords: ['POS features', 'inventory management', 'accounting software', 'HR payroll', 'URA EFRIS', 'e-invoicing Uganda', 'QuickBooks migration', 'Zoho Books migration', 'Xero migration', 'kitchen display system', 'work order management', 'AI analytics'],
   openGraph: {
     title: 'Every Feature Included on Every Plan | RetailSmart ERP',
     description: 'POS, inventory, accounting, HR, restaurant, auto service, and AI analytics. No feature gating. No hidden costs.',
@@ -91,6 +91,8 @@ export default function FeaturesPage() {
               "Multi-Warehouse Inventory Management",
               "Double-Entry Accounting",
               "HR and Payroll Management",
+              "URA EFRIS E-Invoicing and Compliance",
+              "Data Migration from QuickBooks, Zoho, Xero, FreshBooks",
               "Kitchen Display System",
               "Table and Reservation Management",
               "Floor Plan Designer",
