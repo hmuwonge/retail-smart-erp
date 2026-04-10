@@ -1,0 +1,223 @@
+# Default values for retail-smart-erp
+replicaCount: 2
+
+image:
+  repository: retail-smart-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "retail-smart-erp"
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "retail-smart-erp"
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1001
+
+service:
+  type: ClusterIP
+  port: 3000
+  wsPort: 3001
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/websocket-services: "retail-smart-erp"
+  hosts:
+    - host: app.retailsmarterp.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: retailsmarterp.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: retail-smart-erp-tls
+      hosts:
+        - app.retailsmarterp.com
+        - retailsmarterp.com
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - retail-smart-erp
+          topologyKey: kubernetes.io/hostname
+
+# PostgreSQL Configuration
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    database: retail_smart
+  primary:
+    resources:
+      requests:
+        cpu: 500m
+        memory: 1Gi
+      limits:
+        cpu: "2"
+        memory: 4Gi
+    persistence:
+      enabled: true
+      size: 50Gi
+      storageClass: ""
+    service:
+      ports:
+        postgresql: 5432
+
+# Read Replica Configuration
+readReplicas:
+  enabled: false
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+  persistence:
+    enabled: true
+    size: 50Gi
+
+# Redis Configuration
+redis:
+  enabled: true
+  architecture: sentinel
+  sentinel:
+    enabled: true
+    masterSet: mymaster
+    quorum: 2
+  auth:
+    enabled: false
+  master:
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
+    persistence:
+      enabled: true
+      size: 10Gi
+  replica:
+    replicaCount: 2
+    resources:
+      requests:
+        cpu: 250m
+        memory: 512Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
+    persistence:
+      enabled: true
+      size: 10Gi
+
+# Environment Variables
+env:
+  NODE_ENV: production
+  NEXT_PUBLIC_APP_NAME: "Retail Smart ERP"
+  NEXT_PUBLIC_BASE_DOMAIN: "retailsmarterp.com"
+  NEXT_PUBLIC_LANDING_DOMAIN: "www.retailsmarterp.com"
+  NEXT_PUBLIC_APP_DOMAIN: "app.retailsmarterp.com"
+  ALLOWED_HOSTS: "localhost,app.retailsmarterp.com,retailsmarterp.com"
+  SKIP_MIGRATIONS: "false"
+  REQUIRE_MIGRATIONS: "true"
+  OTEL_ENABLED: "true"
+  OTEL_SERVICE_NAME: "retail-smart-erp"
+  DISABLE_RATE_LIMITING: "false"
+
+# Database Connection (read/write splitting)
+database:
+  writeUrl: "" # Set via secret: postgresql://postgres:password@postgresql-primary:5432/retail_smart
+  readUrl: ""  # Set via secret: postgresql://postgres:password@postgresql-read:5432/retail_smart
+  adminUrl: "" # Set via secret: postgresql://postgres:password@postgresql-primary:5432/retail_smart
+  maxConnections: 20
+  idleTimeout: 30000
+  connectionTimeout: 10000
+
+# SSO/OIDC Configuration
+sso:
+  enabled: false
+  providers:
+    azuread:
+      enabled: false
+      clientId: ""
+      clientSecret: ""
+      tenantId: ""
+    okta:
+      enabled: false
+      clientId: ""
+      clientSecret: ""
+      issuer: ""
+    google:
+      enabled: false
+      clientId: ""
+      clientSecret: ""
+
+# Monitoring
+monitoring:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    interval: 15s
+  grafana:
+    enabled: true
+    adminPassword: "admin"
+
+# Deployment Strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+# Health Checks
+healthCheck:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1

@@ -30,12 +30,13 @@ export function StepCountry({ country, tosAccepted, onCountryChange, onTosChange
             Country
           </label>
           <div className="relative">
-            <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" size={18} />
+            <Globe className="absolute left-3 right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" size={18} />
             <select
               id="country"
               value={country}
               onChange={(e) => onCountryChange(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-md text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all appearance-none"
+              className="w-full pl-10 pr-4 py-6 h-10 bg-white/5 border border-white/10 rounded-md text-sm text-white
+              focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all appearance-none"
             >
               <option value="">Select your country</option>
               {countries.map((c) => (

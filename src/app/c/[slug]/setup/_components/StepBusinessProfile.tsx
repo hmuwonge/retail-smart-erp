@@ -305,6 +305,30 @@ export function StepBusinessProfile({
             </FormSelect>
           </FormField>
         </div>
+
+        {/* EFRIS TIN Field - Only shown for Uganda */}
+        {country === 'UG' && (
+          <div className="grid grid-cols-1 gap-4 mt-4">
+            <FormField
+              label="EFRIS TIN (Tax Identification Number)"
+              hint="Required for Uganda Revenue Authority integration"
+              required
+            >
+              <FormInput
+                type="text"
+                value={data.efrisTin || ''}
+                onChange={(e) => onChange({ efrisTin: e.target.value })}
+                placeholder="UG1234567890"
+                maxLength={12}
+              />
+            </FormField>
+            <div className="text-xs text-gray-500 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 p-3 rounded border border-blue-200 dark:border-blue-800">
+              <strong>Note:</strong> EFRIS TIN is required for tax compliance in Uganda. 
+              Format: UG followed by 10 digits (e.g., UG1234567890).
+              You can configure the API token later from the admin panel.
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           <FormField label="Chart of Accounts Template">
             <FormSelect

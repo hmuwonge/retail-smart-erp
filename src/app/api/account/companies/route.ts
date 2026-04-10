@@ -181,12 +181,19 @@ export async function POST(request: NextRequest) {
 
     const parsed = await validateBody(request, createCompanySchema)
     if (!parsed.success) return parsed.response
-    const { name, slug, businessType, email, phone, address, country, dateFormat, timeFormat, tierId, billingCycle, aiEnabled } = parsed.data
+    const { name, slug, businessType, email, phone, address, country, dateFormat, timeFormat, tierId, billingCycle, aiEnabled, efrisTin } = parsed.data
 
     // Validate country
     const countryData = getCountryByCode(country)
     if (!countryData) {
       return NextResponse.json({ error: 'Invalid country selected' }, { status: 400 })
+    }
+
+    // Validate EFRIS TIN for Ugandan companies
+    if (country === 'UG' && efrisTin && !/^UG\d{10}$/.test(efrisTin)) {
+      return NextResponse.json({
+        error: 'Invalid TIN format for Uganda. Must be UG followed by 10 digits.',
+      }, { status: 400 })
     }
 
     // Check if slug is reserved
@@ -382,6 +389,7 @@ export async function POST(request: NextRequest) {
         status: 'active',
         aiEnabled: !!aiEnabled,
         aiConsentAcceptedAt: aiEnabled ? new Date() : null,
+        efrisTin: efrisTin || null,
       }).returning()
 
       // Set tenant context for RLS

@@ -43,6 +43,11 @@ interface SaleData {
   cashier: {
     name: string
   } | null
+  // EFRIS fields
+  efrisInvoiceNo?: string | null
+  efrisAntifakeCode?: string | null
+  efrisQrCode?: string | null
+  efrisStatus?: string | null
 }
 
 interface ReceiptTemplateProps {
@@ -211,6 +216,32 @@ export function ReceiptTemplate({
           <div className="text-center text-xs mt-2 mb-1">{receiptHeader}</div>
         )}
 
+        {/* EFRIS Fiscal Data */}
+        {sale.efrisStatus === 'success' && sale.efrisInvoiceNo && (
+          <>
+            <div className="border-t border-dashed border-gray-400 my-2"></div>
+            <div className="text-xs mb-2">
+              <div className="flex justify-between">
+                <span>Fiscal Inv:</span>
+                <span className="font-mono font-medium">{sale.efrisInvoiceNo}</span>
+              </div>
+              {sale.efrisAntifakeCode && (
+                <div className="mt-1 text-[9px] font-mono break-all">
+                  <span>Code: {sale.efrisAntifakeCode}</span>
+                </div>
+              )}
+              {sale.efrisQrCode && (
+                <div className="mt-2 text-center">
+                  <div className="inline-block p-1 bg-white border">
+                    <p className="text-[7px] font-mono break-all max-w-[150px] mx-auto">{sale.efrisQrCode}</p>
+                  </div>
+                  <p className="text-[8px] text-gray-500 mt-0.5">Scan to verify receipt</p>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
         {/* Footer */}
         {settings.showFooter && (
           <div className="text-center mt-4 pt-2 border-t border-dashed border-gray-400">
@@ -343,6 +374,36 @@ export function ReceiptTemplate({
         <div className="border rounded p-3 mb-4">
           <h3 className="font-semibold text-sm mb-1">Notes</h3>
           <p className="text-sm">{sale.notes}</p>
+        </div>
+      )}
+
+      {/* EFRIS Fiscal Data */}
+      {sale.efrisStatus === 'success' && sale.efrisInvoiceNo && (
+        <div className="border rounded p-3 mb-4 bg-green-50 border-green-200">
+          <h3 className="font-semibold text-sm mb-2 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-green-500"></span>
+            EFRIS Fiscal Receipt
+          </h3>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <p className="text-gray-600 text-xs">Fiscal Invoice No:</p>
+              <p className="font-mono font-medium">{sale.efrisInvoiceNo}</p>
+            </div>
+            {sale.efrisAntifakeCode && (
+              <div>
+                <p className="text-gray-600 text-xs">Verification Code:</p>
+                <p className="font-mono text-xs break-all">{sale.efrisAntifakeCode}</p>
+              </div>
+            )}
+          </div>
+          {sale.efrisQrCode && (
+            <div className="mt-3 pt-3 border-t">
+              <p className="text-gray-600 text-xs mb-1">QR Code Data (scan to verify):</p>
+              <div className="p-2 bg-white border rounded">
+                <p className="font-mono text-[10px] break-all">{sale.efrisQrCode}</p>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

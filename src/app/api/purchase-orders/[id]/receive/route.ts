@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { withAuthTenantTransaction } from '@/lib/db'
 import { requirePermission } from '@/lib/auth/roles'
-import { purchaseOrders, purchaseOrderItems, warehouseStock, stockMovements, purchaseReceipts, purchaseReceiptItems } from '@/lib/db/schema'
+import { purchaseOrders, purchaseOrderItems, warehouseStock, stockMovements, purchaseReceipts, purchaseReceiptItems, tenants } from '@/lib/db/schema'
 import { eq, and, sql } from 'drizzle-orm'
 import { logAndBroadcast } from '@/lib/websocket/broadcast'
 import { requireQuota } from '@/lib/db/storage-quota'
@@ -296,5 +296,23 @@ export async function POST(
   if ('error' in result) {
     return result.error
   }
+
+  // Fire-and-forget: Sync stock to EFRIS if tenant has EFRIS enabled
+  // This runs after the transaction commits, so we need to check tenant config first
+  ;(async () => {
+    try {
+      const tenant = await (await import('@/lib/db')).db.query.tenants.findFirst({
+        where: eq(tenants.id, preSession.user.tenantId),
+      })
+      if (tenant?.efrisEnabled && tenant?.efrisTin && tenant?.efrisToken) {
+        const { syncStockOnPurchase } = await import('@/lib/integration/efris-stock')
+        await syncStockOnPurchase(result.data.receiptId, preSession.user.tenantId)
+      }
+    } catch (efrisError) {
+      // Log but don't fail the request — stock sync will retry via background job
+      console.error('[EFRIS] Stock sync on purchase receipt failed:', efrisError)
+    }
+  })()
+
   return NextResponse.json(result.data)
 }
